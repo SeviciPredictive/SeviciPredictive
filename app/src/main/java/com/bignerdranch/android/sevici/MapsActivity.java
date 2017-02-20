@@ -39,8 +39,69 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        LatLng sevilla = new LatLng(37.375561, -6.0951493);
+
+        LatLng sydney = new LatLng(37.3582148, -5.9892272);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in ETSII"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
+
+        LatLng sydney1 = new LatLng(37.2824363, -5.9385094);
+        mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
     }
+
+/*
+    //Obtener ubicacion actual
+    private Marker marcador;
+    double lat = 0.0;
+    double lng = 0.0;
+
+    public void agregarMarcador(double lat, double lng){
+        LatLng coordenadas = new LatLng(lat, lng);
+        CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
+        if(marcador != null){
+            marcador.remove();
+        }
+        marcador = mMap.addMarker(new MarkerOptions()
+                        .position(coordenadas)
+                        .title("Mi ubicación actual")
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+        mMap.animateCamera(miUbicacion);
+    }
+
+    private void actualizarUbicacion(Location location){
+        if(location != null){
+            lat = location.getLatitude();
+            lng = location.getLongitude();
+            agregarMarcador(lat, lng);
+        }
+    }
+
+    LocationListener locListener = new LocationListener(){
+        public void onLocationChanged(Location location){
+            actualizarUbicacion(location);
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras){
+
+        }
+
+        public void onProviderEnabled(String provider){
+
+        }
+
+        public void onProviderDisabled(String provider){
+
+        }
+    };
+
+
+    private void miUbicacion{
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
+    }
+*/
 }
