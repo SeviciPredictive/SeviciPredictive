@@ -38,7 +38,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
-
         <meta-data
             android:name="com.google.android.geo.API_KEY1"
             android:value="@string/google_maps_key1"/>
@@ -46,6 +45,11 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
+        </activity>
+        <activity
+            android:name=".DerechoActivity"
+            android:label="@string/title_activity_derecho"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
