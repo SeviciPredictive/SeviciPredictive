@@ -10,6 +10,7 @@ public class Station {
     private String lng;
     private String idEstacion;
     private String direccion;
+    private String prueba;
 
     public Station(){
         super();
