@@ -60,6 +60,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         miUbicacion();
+
+        for(Station e: stations){
+            LatLng estacion = new LatLng(e.lat, e.lng);
+            String nombreEstacion = e.direccion;
+            mMap.addMarker(new MarkerOptions().position(estacion).title(direccion));
+            //mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
+        }
     }
 
 
