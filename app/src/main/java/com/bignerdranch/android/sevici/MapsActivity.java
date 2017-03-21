@@ -20,6 +20,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -60,13 +63,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         miUbicacion();
-
-        for(Station e: stations){
-            LatLng estacion = new LatLng(e.lat, e.lng);
-            String nombreEstacion = e.direccion;
-            mMap.addMarker(new MarkerOptions().position(estacion).title(direccion));
+    /*
+        List<Station> estaciones = new ArrayList<Station>();
+        for(Station e: estaciones){
+            Double lat= Double.parseDouble(e.getLat());
+            Double lng= Double.parseDouble(e.getLng());
+            LatLng estacion = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions().position(estacion));
             //mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         }
+        */
     }
 
 
