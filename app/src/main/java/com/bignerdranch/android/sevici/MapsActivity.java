@@ -68,6 +68,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for(Station e: estaciones){
             Double lat= Double.parseDouble(e.getLat());
             Double lng= Double.parseDouble(e.getLng());
+            Double lat= Double.parseDouble(stat[3]);
+            Double lng= Double.parseDouble(stat[4]);
             LatLng estacion = new LatLng(lat, lng);
             mMap.addMarker(new MarkerOptions().position(estacion));
             //mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));

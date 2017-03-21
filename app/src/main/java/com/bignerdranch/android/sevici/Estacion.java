@@ -1,5 +1,6 @@
 package com.bignerdranch.android.sevici;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Created by RAFA on 21/03/2017.
  */
@@ -15,7 +16,7 @@ public class Estacion {
     private int connected;
 
     // Proveedor estático de datos para el adaptador
-    //public static List<Estacion> ESTACIONES = new ArrayList<>();
+    public static List<Estacion> ESTACIONES = new ArrayList<>();
 
     public Estacion(int available, int free, int total, int ticket, int open, int updated, int connected) {
 
