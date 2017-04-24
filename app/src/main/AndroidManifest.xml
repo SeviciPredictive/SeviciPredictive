@@ -51,7 +51,6 @@
             android:name=".DerechoActivity"
             android:label="@string/title_activity_derecho"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ParserIdStation"></activity>
     </application>
 
 </manifest>
