@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,26 +54,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
 
-        LatLng sevilla = new LatLng(37.375561, -6.0951493);
+        //LatLng sevilla = new LatLng(37.375561, -6.0951493);
 
-        LatLng sydney = new LatLng(37.3582148, -5.9892272);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in ETSII"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
+        //LatLng sydney = new LatLng(37.3582148, -5.9892272);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in ETSII"));
+        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
 
-        LatLng sydney1 = new LatLng(37.2824363, -5.9385094);
-        mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
-        miUbicacion();
+        //LatLng sydney1 = new LatLng(37.2824363, -5.9385094);
+        //mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
+        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
+         miUbicacion();
 
+        InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
+        CSVFile csvFile = new CSVFile(inputStream);
+        List<String[]> stations = csvFile.read();
+        for(String[] e: stations){
 
-        /*List<Station> estaciones = new ArrayList<Station>();
-        for(Station e: estaciones){
-            Double lat= Double.parseDouble(stat[3]);
-            Double lng= Double.parseDouble(stat[4]);
-            LatLng estacion = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(estacion).title(stat[0]));
+            /*if(e[4].equals("Glorieta Olimpica")){
+                LatLng latLng = new LatLng(37.412983041853934, -5.988933251932231);
+                mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]));
+            }
+            String lats = e[1].substring(0,16);
+            String lons = e[0].substring(1,16);
+            Double lat = new Double(lats);
+            Double lon = new Double(lons);
+            Double t = -1.0;
+            Double m = lon * t;
+
+            //LatLng latLng = new LatLng(Double.parseDouble(e[0].toString()),Double.parseDouble(e[1].toString()));
+            LatLng latLng = new LatLng(lat, m);
+            */
+            Double lat = Double.parseDouble(e[6]);
+            Double lng = Double.parseDouble(e[7]);
+            LatLng latLng = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]));
             //mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
-        }*/
+        }
 
     }
 
