@@ -63,18 +63,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         miUbicacion();
-    /*
-        List<Station> estaciones = new ArrayList<Station>();
+
+
+        /*List<Station> estaciones = new ArrayList<Station>();
         for(Station e: estaciones){
-            Double lat= Double.parseDouble(e.getLat());
-            Double lng= Double.parseDouble(e.getLng());
             Double lat= Double.parseDouble(stat[3]);
             Double lng= Double.parseDouble(stat[4]);
             LatLng estacion = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(estacion));
+            mMap.addMarker(new MarkerOptions().position(estacion).title(stat[0]));
             //mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
-        }
-        */
+        }*/
+
     }
 
 

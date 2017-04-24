@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton mImageButton;
+    private ImageButton mImageButtonStation;
 
 
     @Override
@@ -22,6 +23,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent mainIntent = new Intent().setClass(MainActivity.this, MapsActivity.class);
+                startActivity(mainIntent);
+            }
+        });
+
+        mImageButton = (ImageButton) findViewById(R.id.imageButton);
+        mImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent().setClass(MainActivity.this, StationActivity.class);
                 startActivity(mainIntent);
             }
         });
