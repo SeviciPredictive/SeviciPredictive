@@ -2,6 +2,8 @@ package com.bignerdranch.android.sevici;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 
 import android.location.LocationManager;
@@ -10,6 +12,9 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.location.LocationListener;
+import android.widget.ImageView;
+
+import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +69,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //LatLng sydney1 = new LatLng(37.2824363, -5.9385094);
         //mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
         // mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
-         miUbicacion();
+        // miUbicacion();
+
+
 
         InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
         CSVFile csvFile = new CSVFile(inputStream);
@@ -87,7 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Double lat = Double.parseDouble(e[6]);
             Double lng = Double.parseDouble(e[7]);
             LatLng latLng = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]));
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]).
+                    icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
             //mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         }
 
