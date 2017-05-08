@@ -51,6 +51,13 @@
             android:name=".DerechoActivity"
             android:label="@string/title_activity_derecho"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".TwitterActivity"
+            android:label="@string/title_activity_twitter"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="23c40270f700a6b1caa4aa2697008ef264b23991" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

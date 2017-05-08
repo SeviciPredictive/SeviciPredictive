@@ -36,5 +36,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        mImageButton = (ImageButton) findViewById(R.id.imageButton);
+        mImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent().setClass(MainActivity.this, TwitterActivity.class);
+                startActivity(mainIntent);
+            }
+        });
+
     }
 }
