@@ -5,82 +5,48 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondom"
+    android:background="@drawable/fondobn"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:background="@drawable/fondom"
+    tools:background="@drawable/fondobn"
     tools:context="com.bignerdranch.android.sevici.MainActivity">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageButton"
-        android:layout_marginLeft="31dp"
-        android:layout_marginStart="31dp"
-        android:text="Estaciones" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageButton3"
-        android:layout_alignStart="@+id/imageButton3"
-        android:layout_below="@+id/imageButton3"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:text="Mapa" />
 
     <ImageButton
         android:id="@+id/imageButton3"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_alignBottom="@+id/imageButton"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        app:srcCompat="@drawable/iconoestaciones"
         android:layout_alignTop="@+id/imageButton"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
-        app:srcCompat="@drawable/iconoestaciones" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:layout_below="@+id/imageButton4"
-        android:layout_marginEnd="13dp"
-        android:layout_marginRight="13dp"
-        android:layout_marginTop="13dp"
-        android:text="Rutas" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/imageButton" />
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="130dp"
         android:layout_height="130dp"
+        android:contentDescription=""
+        app:srcCompat="@drawable/iconofavorito"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="55dp"
-        android:contentDescription=""
-        app:srcCompat="@drawable/iconofavorito" />
+        android:layout_marginTop="69dp" />
 
     <ImageButton
         android:id="@+id/imageButton4"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_alignEnd="@+id/imageButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/imageButton"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="67dp"
-        app:srcCompat="@drawable/iconoruta" />
+        app:srcCompat="@drawable/iconoruta"
+        android:layout_below="@+id/Favoritos"
+        android:layout_alignLeft="@+id/Favoritos"
+        android:layout_alignStart="@+id/Favoritos"
+        android:layout_marginTop="39dp" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -95,15 +61,53 @@
         app:srcCompat="@drawable/iconotwitter" />
 
     <TextView
-        android:id="@+id/editText"
+        android:id="@+id/Favoritos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView6"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Twitter" />
+        android:layout_alignEnd="@+id/imageButton"
+        android:layout_alignLeft="@+id/imageButton"
+        android:layout_alignRight="@+id/imageButton"
+        android:layout_alignStart="@+id/imageButton"
+        android:layout_below="@+id/imageButton"
+        android:text="     Rutas    Favoritas"
+        android:textColor="@color/BLANCO"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TwitterInformación"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton2"
+        android:layout_alignStart="@+id/imageButton2"
+        android:layout_below="@+id/imageButton2"
+        android:text="   Twitter Información"
+        android:textColor="@color/BLANCO"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Rutas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton4"
+        android:layout_alignStart="@+id/imageButton4"
+        android:layout_below="@+id/imageButton4"
+        android:text="   Rutas"
+        android:textColor="@color/BLANCO"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/MapaEstaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton3"
+        android:layout_alignStart="@+id/imageButton3"
+        android:layout_below="@+id/imageButton3"
+        android:text="   Mapa Estaciones"
+        android:textColor="@color/BLANCO"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

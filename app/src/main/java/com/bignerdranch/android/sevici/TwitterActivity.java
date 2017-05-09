@@ -7,6 +7,7 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
+import com.twitter.sdk.android.tweetui.UserTimeline;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -56,13 +57,26 @@ public class TwitterActivity extends ListActivity {
 
 
        final SearchTimeline searchTimeline = new SearchTimeline.Builder()
-               .query("#sevici")
+               .query("#Sevici")
                .build();
+
 
        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(this)
                .setTimeline(searchTimeline)
                .build();
+
        setListAdapter(adapter);
+
+
+
+       final UserTimeline userTimeline = new UserTimeline.Builder()
+               .screenName("Ayto_Sevilla ")
+               .build();
+       final TweetTimelineListAdapter adapter1 = new TweetTimelineListAdapter.Builder(this)
+               .setTimeline(userTimeline)
+               .build();
+       setListAdapter(adapter1);
+
    }
 
     /*
