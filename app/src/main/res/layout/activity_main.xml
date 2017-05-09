@@ -45,15 +45,20 @@
         android:layout_marginEnd="17dp"
         android:layout_alignBottom="@+id/imageButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/imageButton" />
 
     <TextView
         android:text="Rutas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView6"
+        android:layout_marginTop="13dp"
         android:layout_below="@+id/imageButton4"
-        android:layout_marginTop="14dp"/>
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp" />
 
     <ImageButton
         app:srcCompat="@mipmap/estaciones"
@@ -61,9 +66,9 @@
         android:contentDescription=""
         android:layout_width="130dp"
         android:layout_height="130dp"
+        android:layout_marginTop="53dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="53dp"/>
+        android:layout_alignParentStart="true" />
 
     <ImageButton
         android:layout_width="120dp"
@@ -73,6 +78,32 @@
         android:layout_marginTop="67dp"
         android:layout_below="@+id/textView"
         android:layout_alignRight="@+id/imageButton"
-        android:layout_alignEnd="@+id/imageButton"/>
+        android:layout_alignEnd="@+id/imageButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/twitter"
+        android:layout_alignLeft="@+id/imageButton3"
+        android:layout_alignStart="@+id/imageButton3"
+        android:layout_alignBottom="@+id/imageButton4"
+        android:layout_alignTop="@+id/imageButton4"
+        android:layout_alignRight="@+id/imageButton3"
+        android:layout_alignEnd="@+id/imageButton3" />
+
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Twitter"
+        android:layout_alignBaseline="@+id/textView6"
+        android:layout_alignBottom="@+id/textView6"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
 
 </RelativeLayout>

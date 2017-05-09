@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bignerdranch.android.sevici"
-    >
+    package="com.bignerdranch.android.sevici">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -9,8 +8,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -49,18 +47,21 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".DerechoActivity"
             android:label="@string/title_activity_derecho"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TwitterActivity"
-            android:label="@string/title_activity_twitter"></activity>
+            android:label="@string/title_activity_twitter" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="23c40270f700a6b1caa4aa2697008ef264b23991" />
+
+        <activity android:name=".RutasSelectActivity"
+            android:label="Rutas" />
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

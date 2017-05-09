@@ -1,9 +1,12 @@
 <resources>
-    <string name="app_name">Sevici</string>
+    <string name="app_name">SeviciPredictive</string>
     <string name="accept">Aceptar</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_derecho">DerechoActivity</string>
     <string name="title_activity_station">StationActivity</string>
-    <string name="title_activity_twitter">StationActivity</string>
+    <string name="title_activity_twitter">TwitterActivity</string>
+    <string name="title_activity_rutas">RutasActivity</string>
+
+    <string name="rutas_choose">Elige ruta</string>
 </resources>
