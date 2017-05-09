@@ -69,7 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //LatLng sydney1 = new LatLng(37.2824363, -5.9385094);
         //mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
         // mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
-        // miUbicacion();
+         miUbicacion();
 
 
 
