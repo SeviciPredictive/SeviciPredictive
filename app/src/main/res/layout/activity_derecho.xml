@@ -42,9 +42,20 @@
             android:fontFamily="sans-serif"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:background="@drawable/terminos"
+            android:background="@drawable/imgp"
             android:layout_above="@+id/button5"
             android:layout_below="@+id/toolbar2"/>
+
+        <TextView
+            android:id="@+id/Terminos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Esta aplicación no pertenece al  Ayuntamiento de Sevilla, pertenece a un grupo de estudiantes de Ingeniería del Software y forma parte del trabajo de  fin de grado."
+            android:layout_below="@+id/toolbar2"
+            android:layout_gravity="center_vertical|right"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginTop="84dp" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

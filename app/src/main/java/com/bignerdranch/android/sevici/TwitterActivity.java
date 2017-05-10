@@ -68,14 +68,15 @@ public class TwitterActivity extends ListActivity {
        setListAdapter(adapter);
 
 
-
+        /*
        final UserTimeline userTimeline = new UserTimeline.Builder()
-               .screenName("Ayto_Sevilla ")
+               .screenName("Ayto_Sevilla")
                .build();
        final TweetTimelineListAdapter adapter1 = new TweetTimelineListAdapter.Builder(this)
                .setTimeline(userTimeline)
                .build();
        setListAdapter(adapter1);
+       */
 
    }
 
