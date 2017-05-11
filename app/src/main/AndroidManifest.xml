@@ -41,11 +41,17 @@
              <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAPkoxEI1gPAok9ow5_0n1YhZMytly_vKY" />
+
+            AIzaSyBqRhLNVLASQGlXbliB7gD0Yz72dM3T9KQ
+
+            meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
         -->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyBqRhLNVLASQGlXbliB7gD0Yz72dM3T9KQ" />
 
 
 
@@ -66,6 +72,11 @@
 
         <activity android:name=".RutasSelectActivity"
             android:label="Rutas" />
+
+        <activity
+            android:name=".FavoriteActivity"
+            android:label="@string/title_activity_favorite" />
+
     </application>
 
 </manifest>

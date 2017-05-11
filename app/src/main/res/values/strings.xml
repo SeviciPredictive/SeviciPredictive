@@ -7,6 +7,7 @@
     <string name="title_activity_station">StationActivity</string>
     <string name="title_activity_twitter">TwitterActivity</string>
     <string name="title_activity_rutas">RutasActivity</string>
+    <string name="title_activity_favorite">RutasActivity</string>
 
     <string name="rutas_choose">Elige ruta</string>
 </resources>

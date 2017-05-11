@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainIntent = new Intent().setClass(MainActivity.this, StationActivity.class);
+                Intent mainIntent = new Intent().setClass(MainActivity.this, FavoriteActivity.class);
                 startActivity(mainIntent);
             }
         });
