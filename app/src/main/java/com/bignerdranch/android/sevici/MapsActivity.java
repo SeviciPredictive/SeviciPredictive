@@ -2,8 +2,6 @@ package com.bignerdranch.android.sevici;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 
 import java.io.IOException;
@@ -20,13 +18,10 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.location.LocationListener;
-import android.util.Log;
-import android.widget.ImageView;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+
 import javax.xml.parsers.ParserConfigurationException;
 
-import com.google.android.gms.ads.formats.NativeAd;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,17 +32,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.w3c.dom.Document;
+
 import org.xml.sax.SAXException;
 
-import java.io.File;
+
 import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -99,10 +92,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Double lat = Double.parseDouble(e[6]);
             Double lng = Double.parseDouble(e[7]);
 
-/*            try {
+            try {
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
-                Document doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/1").openStream());
+                Document doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/"+e[3]).openStream());
                 doc.getDocumentElement().normalize();
             } catch (SAXException e1) {
                 e1.printStackTrace();
@@ -110,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 e1.printStackTrace();
             } catch (ParserConfigurationException e1) {
                 e1.printStackTrace();
-            }*/
+            }
 
             LatLng latLng = new LatLng(lat, lng);
             mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]).snippet("Numero de estacion"+ e[3])
