@@ -79,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
 
-        LatLng sevilla = new LatLng(37.375561, -6.0951493);
+        LatLng sevilla = new LatLng(37.3754865, -6.025099);
 
         //LatLng sydney = new LatLng(37.3582148, -5.9892272);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in ETSII"));
@@ -116,6 +116,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]).snippet("Numero de estacion"+ e[3])
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(10.5f));
         }
     }
 
