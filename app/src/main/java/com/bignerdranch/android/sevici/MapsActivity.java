@@ -6,13 +6,25 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 
+import java.io.IOException;
+import java.net.URL;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.location.LocationListener;
+import android.util.Log;
 import android.widget.ImageView;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.maps.CameraUpdate;
@@ -25,10 +37,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -69,14 +88,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //LatLng sydney1 = new LatLng(37.2824363, -5.9385094);
         //mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
         // mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
-         miUbicacion();
-
+        miUbicacion();
 
 
         InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
         CSVFile csvFile = new CSVFile(inputStream);
         List<String[]> stations = csvFile.read();
-        for(String[] e: stations){
+        for (String[] e : stations) {
 
             /*if(e[4].equals("Glorieta Olimpica")){
                 LatLng latLng = new LatLng(37.412983041853934, -5.988933251932231);
@@ -94,13 +112,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             */
             Double lat = Double.parseDouble(e[6]);
             Double lng = Double.parseDouble(e[7]);
+            Double numestacion = Double.parseDouble(e[3]);
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = null;
+            try {
+                db = dbf.newDocumentBuilder();
+            } catch (ParserConfigurationException e1) {
+                e1.printStackTrace();
+            }
+            Document doc = null;
+            try {
+                doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/" + numestacion).openStream());
+            } catch (SAXException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            doc.getDocumentElement().normalize();
+
             LatLng latLng = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]).
-                    icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]).snippet("Bicis Disponibles: " + doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent() +
+                    "Bornetas Libres:"+ doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent())
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
             //mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         }
-
     }
+
 
 
     //Obtener ubicacion actual
