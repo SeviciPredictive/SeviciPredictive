@@ -112,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             */
             Double lat = Double.parseDouble(e[6]);
             Double lng = Double.parseDouble(e[7]);
-            Double numestacion = Double.parseDouble(e[3]);
+            //Double numestacion = Double.parseDouble(e[3]);
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = null;
@@ -123,7 +123,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
             Document doc = null;
             try {
-                doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/" + numestacion).openStream());
+                doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/"+e[3]).openStream());
             } catch (SAXException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
@@ -155,7 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         marcador = mMap.addMarker(new MarkerOptions()
                 .position(coordenadas)
                 .title("Mi ubicación actual")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ubicacionactual)));
         mMap.animateCamera(miUbicacion);
     }
 
