@@ -79,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
 
-        //LatLng sevilla = new LatLng(37.375561, -6.0951493);
+        LatLng sevilla = new LatLng(37.375561, -6.0951493);
 
         //LatLng sydney = new LatLng(37.3582148, -5.9892272);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in ETSII"));
@@ -96,46 +96,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         List<String[]> stations = csvFile.read();
         for (String[] e : stations) {
 
-            /*if(e[4].equals("Glorieta Olimpica")){
-                LatLng latLng = new LatLng(37.412983041853934, -5.988933251932231);
-                mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]));
-            }
-            String lats = e[1].substring(0,16);
-            String lons = e[0].substring(1,16);
-            Double lat = new Double(lats);
-            Double lon = new Double(lons);
-            Double t = -1.0;
-            Double m = lon * t;
-
-            //LatLng latLng = new LatLng(Double.parseDouble(e[0].toString()),Double.parseDouble(e[1].toString()));
-            LatLng latLng = new LatLng(lat, m);
-            */
             Double lat = Double.parseDouble(e[6]);
             Double lng = Double.parseDouble(e[7]);
-            //Double numestacion = Double.parseDouble(e[3]);
 
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = null;
-            try {
-                db = dbf.newDocumentBuilder();
-            } catch (ParserConfigurationException e1) {
-                e1.printStackTrace();
-            }
-            Document doc = null;
-            try {
-                doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/"+e[3]).openStream());
+/*            try {
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/1").openStream());
+                doc.getDocumentElement().normalize();
             } catch (SAXException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
-            doc.getDocumentElement().normalize();
+            } catch (ParserConfigurationException e1) {
+                e1.printStackTrace();
+            }*/
 
             LatLng latLng = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]).snippet("Bicis Disponibles: " + doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent() +
-                    "Bornetas Libres:"+ doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent())
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]).snippet("Numero de estacion"+ e[3])
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
-            //mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         }
     }
 
