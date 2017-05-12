@@ -112,30 +112,29 @@ public class RutasSelectActivity extends AppCompatActivity {
                 InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
                 CSVFile csvFile = new CSVFile(inputStream);
                 List<String[]> stations = csvFile.read();
+                Double latOrigen = 0.0;
+                Double lngOrigen = 0.0;
+                Double latDestino = 0.0;
+                Double lngDestino = 0.0;
                 for(String[] e: stations) {
-
-                    if ((e[4].toString().contains(origenSeleccionado))) {
-                        Double latOrigen = Double.parseDouble(e[6]);
-                        Double lngOrigen = Double.parseDouble(e[7]);
+                    if (e[4].toString().contains(origenSeleccionado)) {
+                        latOrigen = Double.parseDouble(e[6]);
+                        lngOrigen = Double.parseDouble(e[7]);
                         //LatLng latLng = new LatLng(latOrigen, lngOrigen);
                     }
 
-                    if ((e[4].toString().contains(origenSeleccionado))){
-                        Double latDestino = Double.parseDouble(e[6]);
-                        Double lngDestino = Double.parseDouble(e[7]);
-                    //LatLng latLng = new LatLng(latDestino, lngDestino);
+                    if (e[4].toString().contains(destinoSeleccionado)) {
+                        latDestino = Double.parseDouble(e[6]);
+                        lngDestino = Double.parseDouble(e[7]);
+                        //LatLng latLng = new LatLng(latOrigen, lngOrigen);
                     }
 
-                        Uri uriUrl = Uri.parse("http://maps.google.com/maps?saddr=" + latOrigen.toString() + "," + lngDestino.toString()
-                                + "&daddr=" + latDestino.toString() + "," + lngDestino.toString());
-                        //Especificamos la accion a realizar con el ACTION_VIEW
-                        //para que elija lo mas razonable
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        startActivity(intent);
-
-                    }
-
-
+                    Uri uriUrl = Uri.parse("http://maps.google.com/maps?saddr=" + latOrigen.toString() + "," + lngDestino.toString()
+                            + "&daddr=" + latDestino.toString() + "," + lngDestino.toString());
+                    //Especificamos la accion a realizar con el ACTION_VIEW
+                    //para que elija lo mas razonable
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(intent);
                 }
 
 
