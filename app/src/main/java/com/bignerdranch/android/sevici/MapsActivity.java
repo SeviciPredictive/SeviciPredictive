@@ -79,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for (Estacion e : estaciones) {
             LatLng latLng = new LatLng(e.getLat(), e.getLen());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getName()).snippet("Numero de estacion" + e.getNumero())
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getName()).snippet("Bicis disponibles:" + e.getAvailable() +" - Bornestas libres: "+e.getFree())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
 
         }
