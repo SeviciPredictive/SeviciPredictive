@@ -184,7 +184,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Document doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/"+e.getNumero()).openStream());
                 doc.getDocumentElement().normalize();
 
-                e.setAvailable(doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent());
+                //e.setAvailable(doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent());
+                e.setAvailable("pollas");
                 e.setFree(doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent());
             }
 
