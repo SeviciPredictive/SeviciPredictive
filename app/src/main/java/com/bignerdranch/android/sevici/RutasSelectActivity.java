@@ -47,7 +47,7 @@ public class RutasSelectActivity extends AppCompatActivity {
         CSVFile csvFile = new CSVFile(inputStream);
         List<String[]> stations = csvFile.read();
         for(String[] e: stations){
-            list.add(e[3]+" - "+e[4]);
+            list.add(e[4]);
         }
         //   list.add("list 1");
         //   list.add("list 2");//  list.add("list 3");
@@ -68,7 +68,7 @@ public class RutasSelectActivity extends AppCompatActivity {
         CSVFile csvFile = new CSVFile(inputStream);
         List<String[]> stations = csvFile.read();
         for(String[] e: stations){
-            list.add(e[3]+" - "+e[4]);
+            list.add(e[4]);
         }
      //   list.add("list 1");
      //   list.add("list 2");//  list.add("list 3");
@@ -112,19 +112,22 @@ public class RutasSelectActivity extends AppCompatActivity {
                 InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
                 CSVFile csvFile = new CSVFile(inputStream);
                 List<String[]> stations = csvFile.read();
-                for(String[] e: stations){
+                for(String[] e: stations) {
 
-                    if(((e[3]+" - "+e[4]).equals(origenSeleccionado)) && ((e[3]+" - "+e[4]).equals(destinoSeleccionado)) ){
+                    if ((e[4].toString().contains(origenSeleccionado))) {
                         Double latOrigen = Double.parseDouble(e[6]);
                         Double lngOrigen = Double.parseDouble(e[7]);
                         //LatLng latLng = new LatLng(latOrigen, lngOrigen);
+                    }
 
+                    if ((e[4].toString().contains(origenSeleccionado))){
                         Double latDestino = Double.parseDouble(e[6]);
                         Double lngDestino = Double.parseDouble(e[7]);
-                        //LatLng latLng = new LatLng(latDestino, lngDestino);
+                    //LatLng latLng = new LatLng(latDestino, lngDestino);
+                    }
 
-                        Uri uriUrl = Uri.parse("http://maps.google.com/maps?saddr=" + latOrigen.toString()+","+lngDestino.toString()
-                                +"&daddr="+latDestino.toString()+","+lngDestino.toString());
+                        Uri uriUrl = Uri.parse("http://maps.google.com/maps?saddr=" + latOrigen.toString() + "," + lngDestino.toString()
+                                + "&daddr=" + latDestino.toString() + "," + lngDestino.toString());
                         //Especificamos la accion a realizar con el ACTION_VIEW
                         //para que elija lo mas razonable
                         Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
