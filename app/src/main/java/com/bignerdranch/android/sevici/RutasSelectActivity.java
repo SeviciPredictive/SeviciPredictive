@@ -129,13 +129,14 @@ public class RutasSelectActivity extends AppCompatActivity {
                         //LatLng latLng = new LatLng(latOrigen, lngOrigen);
                     }
 
-                    Uri uriUrl = Uri.parse("http://maps.google.com/maps?saddr=" + latOrigen.toString() + "," + lngDestino.toString()
-                            + "&daddr=" + latDestino.toString() + "," + lngDestino.toString());
-                    //Especificamos la accion a realizar con el ACTION_VIEW
-                    //para que elija lo mas razonable
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                    startActivity(intent);
+
                 }
+                Uri uriUrl = Uri.parse("http://maps.google.com/maps?saddr=" + latOrigen.toString() + "," + lngDestino.toString()
+                        + "&daddr=" + latDestino.toString() + "," + lngDestino.toString());
+                //Especificamos la accion a realizar con el ACTION_VIEW
+                //para que elija lo mas razonable
+                Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                startActivity(intent);
 
 
             }
