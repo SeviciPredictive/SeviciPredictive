@@ -1,7 +1,9 @@
 package com.bignerdranch.android.sevici;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -25,6 +27,7 @@ public class RutasSelectActivity extends AppCompatActivity {
     private Button btnSubmit;
     private GoogleMap map;
     private WebView webView;
+
 
 
     @Override
@@ -91,6 +94,7 @@ public class RutasSelectActivity extends AppCompatActivity {
         spinner2 = (Spinner) findViewById(R.id.spinner2);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
+
         btnSubmit.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -116,6 +120,7 @@ public class RutasSelectActivity extends AppCompatActivity {
                 Double lngOrigen = 0.0;
                 Double latDestino = 0.0;
                 Double lngDestino = 0.0;
+
                 for(String[] e: stations) {
                     if (e[4].toString().contains(origenSeleccionado)) {
                         latOrigen = Double.parseDouble(e[6]);
@@ -128,10 +133,28 @@ public class RutasSelectActivity extends AppCompatActivity {
                         lngDestino = Double.parseDouble(e[7]);
                         //LatLng latLng = new LatLng(latOrigen, lngOrigen);
                     }
+                    /*if(origenSeleccionado==destinoSeleccionado){
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+                       alertDialogBuilder.setMessage("La parada de origen y destino no pueden ser iguales");
+                        alertDialogBuilder.setPositiveButton(
+                                "Aceptar",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog alert11 = alertDialogBuilder.create();
+                        alert11.show();
+
+                        Toast toast = Toast.makeText(getApplicationContext(), "Ejemplo de Mensaje Popup para Android OS desde Devtroce.com", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }*/
+
 
 
                 }
-                Uri uriUrl = Uri.parse("http://maps.google.com/maps?saddr=" + latOrigen.toString() + "," + lngDestino.toString()
+                Uri uriUrl = Uri.parse("http://maps.google.es/maps?saddr=" + latOrigen.toString() + "," + lngDestino.toString()
                         + "&daddr=" + latDestino.toString() + "," + lngDestino.toString());
                 //Especificamos la accion a realizar con el ACTION_VIEW
                 //para que elija lo mas razonable
