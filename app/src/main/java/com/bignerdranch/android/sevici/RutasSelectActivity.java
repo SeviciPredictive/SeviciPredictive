@@ -10,17 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
 public class RutasSelectActivity extends AppCompatActivity {
 
     private Spinner spinner1, spinner2;
     private Button btnSubmit;
+    private GoogleMap map;
+    private WebView webView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +97,7 @@ public class RutasSelectActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast.makeText(RutasSelectActivity.this,
-                        "OnClickListener : " +
+                        "Calcular rutas entre : " +
                                 "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()) +
                                 "\nSpinner 2 : "+ String.valueOf(spinner2.getSelectedItem()),
                         Toast.LENGTH_SHORT).show();
@@ -109,7 +114,7 @@ public class RutasSelectActivity extends AppCompatActivity {
                 List<String[]> stations = csvFile.read();
                 for(String[] e: stations){
 
-                    if((e[4].contains(origenSeleccionado)) && (e[4].contains(destinoSeleccionado)) ){
+                    if((e[3].toString().contains(origenSeleccionado)) && (e[3].toString().contains(destinoSeleccionado)) ){
                         Double latOrigen = Double.parseDouble(e[6]);
                         Double lngOrigen = Double.parseDouble(e[7]);
                         //LatLng latLng = new LatLng(latOrigen, lngOrigen);
@@ -118,11 +123,13 @@ public class RutasSelectActivity extends AppCompatActivity {
                         Double lngDestino = Double.parseDouble(e[7]);
                         //LatLng latLng = new LatLng(latDestino, lngDestino);
 
-                        String uri = "http://maps.google.com/maps?saddr=" + latOrigen.toString()+","+lngDestino.toString()+
-                                "&daddr="+latDestino.toString()+","+lngDestino.toString();
-                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-                        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                        Uri uriUrl = Uri.parse("http://maps.google.com/maps?saddr=" + latOrigen.toString()+","+lngDestino.toString()
+                                +"&daddr="+latDestino.toString()+","+lngDestino.toString());
+                        //Especificamos la accion a realizar con el ACTION_VIEW
+                        //para que elija lo mas razonable
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
                         startActivity(intent);
+
                     }
 
 
