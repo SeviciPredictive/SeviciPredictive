@@ -47,6 +47,7 @@ public class FavoriteActivity extends AppCompatActivity{
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(dataAdapter);
+        String itemText = (String) spinner1.getSelectedItem();
     }
 
     public void addListenerOnButton() {
@@ -63,8 +64,13 @@ public class FavoriteActivity extends AppCompatActivity{
                         "OnClickListener : " +
                                 "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()),
                         Toast.LENGTH_SHORT).show();
+
+                String seleccionada = (String) spinner1.getSelectedItem();
             }
 
         });
+
+
+
     }
 }
