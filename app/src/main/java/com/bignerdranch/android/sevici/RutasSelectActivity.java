@@ -1,5 +1,7 @@
 package com.bignerdranch.android.sevici;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -12,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class RutasSelectActivity extends AppCompatActivity {
 
@@ -92,8 +96,43 @@ public class RutasSelectActivity extends AppCompatActivity {
                                 "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()) +
                                 "\nSpinner 2 : "+ String.valueOf(spinner2.getSelectedItem()),
                         Toast.LENGTH_SHORT).show();
+
+
+
+                String origenSeleccionado = (String) spinner1.getSelectedItem();
+                String destinoSeleccionado = (String) spinner2.getSelectedItem();
+
+
+
+                InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
+                CSVFile csvFile = new CSVFile(inputStream);
+                List<String[]> stations = csvFile.read();
+                for(String[] e: stations){
+
+                    if((e[4].contains(origenSeleccionado)) && (e[4].contains(destinoSeleccionado)) ){
+                        Double latOrigen = Double.parseDouble(e[6]);
+                        Double lngOrigen = Double.parseDouble(e[7]);
+                        //LatLng latLng = new LatLng(latOrigen, lngOrigen);
+
+                        Double latDestino = Double.parseDouble(e[6]);
+                        Double lngDestino = Double.parseDouble(e[7]);
+                        //LatLng latLng = new LatLng(latDestino, lngDestino);
+
+                        String uri = "http://maps.google.com/maps?saddr=" + latOrigen.toString()+","+lngDestino.toString()+
+                                "&daddr="+latDestino.toString()+","+lngDestino.toString();
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+                        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                        startActivity(intent);
+                    }
+
+
+                }
+
+
             }
 
         });
     }
+
+
 }
