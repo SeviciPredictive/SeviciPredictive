@@ -168,7 +168,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             estacion.setLat(Double.parseDouble(e[6]));
             estacion.setLen(Double.parseDouble(e[7]));
             res.add(estacion);
-            Log.d("CREATION", "Value" + estacion);
         }
         return res;
 
@@ -181,26 +180,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for (Estacion e : estaciones) {
             try {
+
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
                 URL url = new URL("http://www.sevici.es/service/stationdetails/seville/"+e.getNumero());
+                URLConnection urlConnection = url.openConnection();
+                Document doc = db.parse(urlConnection.getInputStream());
+                doc.getDocumentElement().normalize();
 
-                URLConnection connection = url.openConnection();
+                String available = doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent();
+                String free = doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent();
 
-                HttpURLConnection httpConnection = (HttpURLConnection)connection;
-                int responseCode = httpConnection.getResponseCode();
-
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    InputStream in = httpConnection.getInputStream();
-                    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder db = dbf.newDocumentBuilder();
-                    Document doc = db.parse(in);
-                    doc.getDocumentElement().normalize();
-
-                    String available = doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent();
-                    String free = doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent();
-
-                    e.setAvailable(available);
-                    e.setFree(free);
-                }
+                e.setAvailable(available);
+                e.setFree(free);
 
                /* DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();

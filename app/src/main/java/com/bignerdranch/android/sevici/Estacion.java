@@ -14,7 +14,7 @@ public class Estacion {
     private Double lat;
     private Double len;
 
-
+    public static List<Estacion> estaciones = new ArrayList<>();
 
     public Estacion() {
         super();
