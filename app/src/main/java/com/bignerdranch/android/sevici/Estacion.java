@@ -9,55 +9,70 @@ public class Estacion {
 
     private int available;
     private int free;
-    private int total;
-    private int ticket;
-    private int open;
-    private int updated;
-    private int connected;
+    private String name;
+    private String numero;
+    private Double lat;
+    private Double len;
 
     // Proveedor estático de datos para el adaptador
     public static List<Estacion> ESTACIONES = new ArrayList<>();
 
-    public Estacion(int available, int free, int total, int ticket, int open, int updated, int connected) {
 
-        this.available = available;
-        this.free = free;
-        this.total = total;
-        this.ticket = ticket;
-        this.open = open;
-        this.updated = updated;
-        this.connected = connected;
+
+    public Estacion() {
+        super();
     }
-
-
-
-
 
     public int getAvailable() {
         return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
+    }
+
+    public void setFree(int free) {
+        this.free = free;
     }
 
     public int getFree() {
         return free;
     }
 
-    public int getTotal() {
-        return total;
-    }
-    public int getTicket() {
-        return ticket;
+    public String getName(){
+        return name;
     }
 
-    public int getOpen() {
-        return open;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getUpdated() {
-        return updated;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-    public int getConnected() {
-        return connected;
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
+
+    public void setLen(Double len) {
+        this.len = len;
+    }
+
+    public String getNumero(){
+        return numero;
+
+    }
+
+    public Double getLat(){
+        return lat;
+    }
+
+    public Double getLen(){
+        return len;
+    }
+
+
+
 
 }

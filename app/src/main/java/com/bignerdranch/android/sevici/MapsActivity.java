@@ -33,11 +33,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
 import java.io.InputStream;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -83,36 +85,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         miUbicacion();
 
+        List<Estacion> estaciones = generateEstacionInfoXML();
 
-        InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
-        CSVFile csvFile = new CSVFile(inputStream);
-        List<String[]> stations = csvFile.read();
-        for (String[] e : stations) {
-
-            Double lat = Double.parseDouble(e[6]);
-            Double lng = Double.parseDouble(e[7]);
-
-            try {
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                Document doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/"+e[3]).openStream());
-                doc.getDocumentElement().normalize();
-            } catch (SAXException e1) {
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (ParserConfigurationException e1) {
-                e1.printStackTrace();
-            }
-
+        for(Estacion e:estaciones){
             LatLng latLng = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e[4]).snippet("Numero de estacion"+ e[3])
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(10.5f));
-        }
-    }
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getName()).snippet("Numero de estacion" + e.getNumero())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
 
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10.5f));
+    }
 
 
     //Obtener ubicacion actual
@@ -175,7 +158,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         actualizarUbicacion(location);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,7000,0,locListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 7000, 0, locListener);
+    }
+
+    public List<Estacion> generateEstacionesInfoCSV() {
+        List<Estacion> res = new ArrayList<Estacion>();
+
+        InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
+        CSVFile csvFile = new CSVFile(inputStream);
+        List<String[]> stations = csvFile.read();
+        for (String[] e : stations) {
+            Estacion estacion = new Estacion();
+            estacion.setName(e[4]);
+            estacion.setNumero(e[3]);
+            estacion.setLat(Double.parseDouble(e[6]));
+            estacion.setLen(Double.parseDouble(e[7]));
+            res.add(estacion);
+            System.out.println(estacion);
+            }
+            return res;
+        }
+
+    public List<Estacion> generateEstacionInfoXML(){
+
+        List<Estacion> estaciones = generateEstacionesInfoCSV();
+        try {
+
+            for(Estacion e:estaciones){
+
+
+            URL url = new URL("http://www.sevici.es/service/stationdetails/seville/"+e.getNumero());
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(url.openStream()));
+            doc.getDocumentElement().normalize();
+
+                e.setAvailable(Integer.parseInt(doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent()));
+                e.setFree(Integer.parseInt(doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent()));
+            }
+
+        } catch (Exception e1) {
+            System.out.println("XML Pasing Excpetion = " + e1);
+        }
+
+
+        return estaciones;
     }
 
 }
