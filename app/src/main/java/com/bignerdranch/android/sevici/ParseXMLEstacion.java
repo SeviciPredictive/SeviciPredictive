@@ -1,3 +1,4 @@
+/*
 package com.bignerdranch.android.sevici;
 import android.util.Xml;
 
@@ -9,9 +10,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+*/
 /**
  * Created by RAFA on 21/03/2017.
- */
+ *//*
+
 
 public class ParseXMLEstacion {
 
@@ -32,14 +35,16 @@ public class ParseXMLEstacion {
     private static final String ETIQUETA_CONNECTED = "connected";
 
 
-    /**
+    */
+/**
      * Parsea un flujo XML a una lista de objetos {@link Estacion}
      *
      * @param in flujo
      * @return Lista de estaciones
      * @throws XmlPullParserException
      * @throws IOException
-     */
+     *//*
+
 
     public Estacion parsear(InputStream in) throws XmlPullParserException, IOException {
         try {
@@ -54,6 +59,7 @@ public class ParseXMLEstacion {
     }
 
 
+*/
 /*
     public List<Estacion> parsear(InputStream in) throws XmlPullParserException, IOException {
         try {
@@ -68,15 +74,18 @@ public class ParseXMLEstacion {
     }
 
 
-    /**
+    */
+/**
      * Convierte una serie de etiquetas <hotel> en una lista
      *
      * @param parser
      * @return lista de hoteles
      * @throws XmlPullParserException
      * @throws IOException
-     */
-    /*
+     *//*
+
+    */
+/*
     private List<Hotel> leerHoteles(XmlPullParser parser)
             throws XmlPullParserException, IOException {
         List<Hotel> listaHoteles = new ArrayList<Hotel>();
@@ -96,15 +105,18 @@ public class ParseXMLEstacion {
         }
         return listaHoteles;
     }
-*/
-    /**
+*//*
+
+    */
+/**
      * Convierte una etiqueta <estacion> en un objeto Estacion
      *
      * @param parser parser XML
      * @return nuevo objeto Hotel
      * @throws XmlPullParserException
      * @throws IOException
-     */
+     *//*
+
     private Estacion leerEstacion(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, ns, ETIQUETA_ESTACION);
         int available=0;
@@ -246,4 +258,4 @@ public class ParseXMLEstacion {
     }
 
 
-}
+}*/
