@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.location.LocationListener;
+import android.util.Log;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -71,24 +72,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-
         LatLng sevilla = new LatLng(37.3754865, -6.025099);
 
-        //LatLng sydney = new LatLng(37.3582148, -5.9892272);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in ETSII"));
-        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
-
-        //LatLng sydney1 = new LatLng(37.2824363, -5.9385094);
-        //mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in McDonals"));
-        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         miUbicacion();
-
         List<Estacion> estaciones = generateEstacionInfoXML();
 
-        for(Estacion e:estaciones){
-            LatLng latLng = new LatLng(lat, lng);
+        for (Estacion e : estaciones) {
+            LatLng latLng = new LatLng(e.getLat(), e.getLen());
             mMap.addMarker(new MarkerOptions().position(latLng).title(e.getName()).snippet("Numero de estacion" + e.getNumero())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
 
@@ -174,14 +164,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             estacion.setLat(Double.parseDouble(e[6]));
             estacion.setLen(Double.parseDouble(e[7]));
             res.add(estacion);
-            System.out.println(estacion);
-            }
-            return res;
+            Log.d("CREATION", "Value" + estacion);
         }
+        return res;
+
+    }
+
 
     public List<Estacion> generateEstacionInfoXML(){
 
         List<Estacion> estaciones = generateEstacionesInfoCSV();
+
         try {
 
             for(Estacion e:estaciones){

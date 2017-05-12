@@ -72,7 +72,15 @@ public class Estacion {
         return len;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Estacion{" +
+                "available=" + available +
+                ", free=" + free +
+                ", name='" + name + '\'' +
+                ", numero='" + numero + '\'' +
+                ", lat=" + lat +
+                ", len=" + len +
+                '}';
+    }
 }
