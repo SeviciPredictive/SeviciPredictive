@@ -79,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for (Estacion e : estaciones) {
             LatLng latLng = new LatLng(e.getLat(), e.getLen());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getName()).snippet("Bicis disponibles:" + e.getAvailable() +" - Bornestas libres: "+e.getFree())
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getName()).snippet("Bicis disponibles:" + e.getAvailable() +" - Bornetas libres: "+e.getFree())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
 
         }
@@ -179,11 +179,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             for(Estacion e:estaciones){
 
-            URL url = new URL("http://www.sevici.es/service/stationdetails/seville/"+e.getNumero());
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(url.openStream()));
-            doc.getDocumentElement().normalize();
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/"+e.getNumero()).openStream());
+                doc.getDocumentElement().normalize();
 
                 e.setAvailable(doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent());
                 e.setFree(doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent());
