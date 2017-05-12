@@ -7,15 +7,12 @@ import java.util.List;
 
 public class Estacion {
 
-    private int available;
-    private int free;
+    private String available;
+    private String free;
     private String name;
     private String numero;
     private Double lat;
     private Double len;
-
-    // Proveedor estático de datos para el adaptador
-    public static List<Estacion> ESTACIONES = new ArrayList<>();
 
 
 
@@ -23,20 +20,21 @@ public class Estacion {
         super();
     }
 
-    public int getAvailable() {
+
+    public String getAvailable() {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(String available) {
         this.available = available;
     }
 
-    public void setFree(int free) {
-        this.free = free;
+    public String getFree() {
+        return free;
     }
 
-    public int getFree() {
-        return free;
+    public void setFree(String free) {
+        this.free = free;
     }
 
     public String getName(){

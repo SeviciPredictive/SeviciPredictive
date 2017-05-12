@@ -179,15 +179,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             for(Estacion e:estaciones){
 
-
             URL url = new URL("http://www.sevici.es/service/stationdetails/seville/"+e.getNumero());
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new InputSource(url.openStream()));
             doc.getDocumentElement().normalize();
 
-                e.setAvailable(Integer.parseInt(doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent()));
-                e.setFree(Integer.parseInt(doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent()));
+                e.setAvailable(doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent());
+                e.setFree(doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent());
             }
 
         } catch (Exception e1) {
