@@ -114,7 +114,7 @@ public class RutasSelectActivity extends AppCompatActivity {
                 List<String[]> stations = csvFile.read();
                 for(String[] e: stations){
 
-                    if((e[3].toString().contains(origenSeleccionado)) && (e[3].toString().contains(destinoSeleccionado)) ){
+                    if(((e[3]+" - "+e[4]).equals(origenSeleccionado)) && ((e[3]+" - "+e[4]).equals(destinoSeleccionado)) ){
                         Double latOrigen = Double.parseDouble(e[6]);
                         Double lngOrigen = Double.parseDouble(e[7]);
                         //LatLng latLng = new LatLng(latOrigen, lngOrigen);
