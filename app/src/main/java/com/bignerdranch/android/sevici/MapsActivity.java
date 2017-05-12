@@ -5,6 +5,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -40,6 +42,7 @@ import org.xml.sax.SAXException;
 
 import java.io.InputStream;
 
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,11 +78,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sevilla = new LatLng(37.3754865, -6.025099);
 
         miUbicacion();
+
         List<Estacion> estaciones = generateEstacionInfoXML();
 
         for (Estacion e : estaciones) {
             LatLng latLng = new LatLng(e.getLat(), e.getLen());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getName()).snippet("Bicis disponibles:" + e.getAvailable() +" - Bornetas libres: "+e.getFree())
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero()+"-"+e.getName()).snippet("Bicis disponibles:" + e.getAvailable() +" - Bornetas libres: "+e.getFree())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
 
         }
@@ -171,31 +175,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    public List<Estacion> generateEstacionInfoXML(){
+    public List<Estacion> generateEstacionInfoXML() {
 
         List<Estacion> estaciones = generateEstacionesInfoCSV();
 
-        try {
+        for (Estacion e : estaciones) {
+            try {
+                URL url = new URL("http://www.sevici.es/service/stationdetails/seville/"+e.getNumero());
 
-            for(Estacion e:estaciones){
-                e.setAvailable(""+estaciones.size());
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                URLConnection connection = url.openConnection();
+
+                HttpURLConnection httpConnection = (HttpURLConnection)connection;
+                int responseCode = httpConnection.getResponseCode();
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream in = httpConnection.getInputStream();
+                    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder db = dbf.newDocumentBuilder();
+                    Document doc = db.parse(in);
+                    doc.getDocumentElement().normalize();
+
+                    String available = doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent();
+                    String free = doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent();
+
+                    e.setAvailable(available);
+                    e.setFree(free);
+                }
+
+               /* DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
-                Document doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/"+e.getNumero()).openStream());
+                Document doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/" + e.getNumero()).openStream());
                 doc.getDocumentElement().normalize();
+*/
 
-                String available = doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent();
-                String free = doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent();
 
-                e.setAvailable(available);
-                e.setFree(free);
+                } catch (Exception e1) {
+                    System.out.println("XML Pasing Excpetion = " + e1);
+                }
+
             }
-
-        } catch (Exception e1) {
-            System.out.println("XML Pasing Excpetion = " + e1);
-        }
-
-
         return estaciones;
     }
 
