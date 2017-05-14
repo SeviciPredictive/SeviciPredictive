@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +15,9 @@ import java.net.URL;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 
 import android.location.LocationManager;
@@ -43,6 +49,7 @@ import org.xml.sax.SAXException;
 import java.io.InputStream;
 
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +86,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         miUbicacion();
 
-        List<Estacion> estaciones = generateEstacionInfoXML();
+        List<Estacion> estaciones = generateEstacionInfoJason();
+
+
 
         for (Estacion e : estaciones) {
             LatLng latLng = new LatLng(e.getLat(), e.getLen());
@@ -155,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 7000, 0, locListener);
     }
 
-    public List<Estacion> generateEstacionesInfoCSV() {
+/*    public List<Estacion> generateEstacionesInfoCSV() {
         List<Estacion> res = new ArrayList<Estacion>();
 
         InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
@@ -164,49 +173,71 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (String[] e : stations) {
             Estacion estacion = new Estacion();
             estacion.setName(e[4]);
-            estacion.setNumero(e[3]);
+            estacion.setNumero(Integer.parseInt(e[3]));
             estacion.setLat(Double.parseDouble(e[6]));
             estacion.setLen(Double.parseDouble(e[7]));
             res.add(estacion);
         }
         return res;
 
-    }
+    }*/
 
 
-    public List<Estacion> generateEstacionInfoXML() {
+    public List<Estacion> generateEstacionInfoJason() {
 
-        List<Estacion> estaciones = generateEstacionesInfoCSV();
+        List<Estacion> estaciones = new ArrayList<Estacion>();
 
         for (Estacion e : estaciones) {
             try {
 
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                URL url = new URL("http://www.sevici.es/service/stationdetails/seville/"+e.getNumero());
-                URLConnection urlConnection = url.openConnection();
-                Document doc = db.parse(urlConnection.getInputStream());
-                doc.getDocumentElement().normalize();
+                JSONArray json = readJsonFromUrl("https://api.jcdecaux.com/vls/v1/stations?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b");
 
-                String available = doc.getDocumentElement().getElementsByTagName("available").item(0).getTextContent();
-                String free = doc.getDocumentElement().getElementsByTagName("free").item(0).getTextContent();
-
-                e.setAvailable(available);
-                e.setFree(free);
-
-               /* DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                Document doc = db.parse(new URL("http://www.sevici.es/service/stationdetails/seville/" + e.getNumero()).openStream());
-                doc.getDocumentElement().normalize();
-*/
-
-
-                } catch (Exception e1) {
-                    System.out.println("XML Pasing Excpetion = " + e1);
+                for(int i=0;i<259;i++){
+                    JSONObject obj = (JSONObject)json.get(i);
+                    Estacion estacion = new Estacion();
+                    estacion.setName(obj.getString("name"));
+                    estacion.setNumero(obj.getInt("number"));
+                    estacion.setAvailable(obj.getInt("available_bikes"));
+                    estacion.setFree(obj.getInt("available_bike_stands"));
+                    JSONObject pos = (JSONObject) obj.getJSONObject("position");
+                    estacion.setLat(pos.getDouble("lat"));
+                    estacion.setLen(pos.getDouble("lng"));
+                    estaciones.add(estacion);
                 }
 
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }  catch (JSONException e1) {
+            e1.printStackTrace();
+        }
             }
         return estaciones;
+    }
+
+    public static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
+    public static JSONArray readJsonFromUrl(String url) throws IOException {
+        // String s = URLEncoder.encode(url, "UTF-8");
+        // URL url = new URL(s);
+        InputStream is = new URL(url).openStream();
+        JSONArray json = null;
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            json = new JSONArray(jsonText);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            is.close();
+        }
+        return json;
     }
 
 }

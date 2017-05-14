@@ -111,8 +111,6 @@ public class RutasSelectActivity extends AppCompatActivity {
                 String origenSeleccionado = (String) spinner1.getSelectedItem();
                 String destinoSeleccionado = (String) spinner2.getSelectedItem();
 
-
-
                 InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
                 CSVFile csvFile = new CSVFile(inputStream);
                 List<String[]> stations = csvFile.read();
