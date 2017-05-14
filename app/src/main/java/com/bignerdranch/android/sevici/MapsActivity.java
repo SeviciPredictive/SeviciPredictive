@@ -75,18 +75,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         LatLng sevilla = new LatLng(37.3754865, -6.025099);
 
-        miUbicacion();
-
-        List<Estacion> estaciones = loadJSONFromAsset();
-
-
+        List <Estacion> estaciones = JSONParser.generateEstacionInfoJason();
 
         for (Estacion e : estaciones) {
             LatLng latLng = new LatLng(e.getLat(), e.getLen());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero()+"-"+e.getName()).snippet("Bicis disponibles:" + e.getAvailable() +" - Bornetas libres: "+e.getFree())
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero()+"-"+e.getName()).snippet(
+                    "Bicis disponibles:" + e.getAvailable() +" - Bornetas libres: "+e.getFree())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
-
         }
+
+        miUbicacion();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10.5f));
     }
@@ -174,97 +172,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }*/
 
 
-    public List<Estacion> generateEstacionInfoJason() {
-
-        List<Estacion> estaciones = new ArrayList<Estacion>();
-
-            try {
-                JSONArray json = readJsonFromUrl("https://api.jcdecaux.com/vls/v1/stations?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b");
-                for(int i=0;i<json.length();i++){
-                    JSONObject obj = (JSONObject)json.get(i);
-                    Estacion estacion = new Estacion();
-                    estacion.setName(obj.getString("name"));
-                    estacion.setNumero(obj.getInt("number"));
-                    estacion.setAvailable(obj.getInt("available_bikes"));
-                    estacion.setFree(obj.getInt("available_bike_stands"));
-                    JSONObject pos = (JSONObject) obj.getJSONObject("position");
-                    estacion.setLat(pos.getDouble("lat"));
-                    estacion.setLen(pos.getDouble("lng"));
-                    estaciones.add(estacion);
-                }
-
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }  catch (JSONException e1) {
-                e1.printStackTrace();
-            }
-        return estaciones;
-    }
 
 
-    public static String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
-    }
-
-    public static JSONArray readJsonFromUrl(String url) throws IOException {
-        InputStream is = new URL(url).openStream();
-        JSONArray json = null;
-        try {
-
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            json = new JSONArray(jsonText);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } finally {
-            is.close();
-        }
-        return json;
-    }
-
-    public ArrayList<Estacion> loadJSONFromAsset() {
-        ArrayList<Estacion> locList = new ArrayList<>();
-        String json = null;
-        try {
-            InputStream is = getAssets().open("sevilla.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        try {
-            JSONObject obj = new JSONObject(json);
-            JSONArray m_jArry = obj.getJSONArray("locations");
-
-            for (int i = 0; i < m_jArry.length(); i++) {
-                JSONObject jo_inside = m_jArry.getJSONObject(i);
-                Estacion estacion = new Estacion();
-                estacion.setName(obj.getString("name"));
-                estacion.setNumero(obj.getInt("number"));
-              /*  estacion.setAvailable(obj.getInt("available_bikes"));
-                estacion.setFree(obj.getInt("available_bike_stands"));
-                JSONObject pos = (JSONObject) obj.getJSONObject("position");
-                estacion.setLat(pos.getDouble("lat"));
-                estacion.setLen(pos.getDouble("lng"));*/
-
-
-
-                //Add your values in your `ArrayList` as below:
-                locList.add(estacion);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return locList;
-    }
 
 }
