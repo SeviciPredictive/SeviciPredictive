@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 
 import android.location.LocationManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -177,9 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         List<Estacion> estaciones = new ArrayList<Estacion>();
 
             try {
-
                 JSONArray json = readJsonFromUrl("https://api.jcdecaux.com/vls/v1/stations?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b");
-
                 for(int i=0;i<json.length();i++){
                     JSONObject obj = (JSONObject)json.get(i);
                     Estacion estacion = new Estacion();
@@ -201,6 +201,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return estaciones;
     }
 
+
     public static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -211,11 +212,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public static JSONArray readJsonFromUrl(String url) throws IOException {
-        // String s = URLEncoder.encode(url, "UTF-8");
-        // URL url = new URL(s);
         InputStream is = new URL(url).openStream();
         JSONArray json = null;
         try {
+
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
             json = new JSONArray(jsonText);
@@ -250,11 +250,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Estacion estacion = new Estacion();
                 estacion.setName(obj.getString("name"));
                 estacion.setNumero(obj.getInt("number"));
-                estacion.setAvailable(obj.getInt("available_bikes"));
+              /*  estacion.setAvailable(obj.getInt("available_bikes"));
                 estacion.setFree(obj.getInt("available_bike_stands"));
                 JSONObject pos = (JSONObject) obj.getJSONObject("position");
                 estacion.setLat(pos.getDouble("lat"));
-                estacion.setLen(pos.getDouble("lng"));
+                estacion.setLen(pos.getDouble("lng"));*/
 
 
 
