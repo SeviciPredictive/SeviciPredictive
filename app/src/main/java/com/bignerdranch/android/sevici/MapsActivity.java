@@ -86,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         miUbicacion();
 
-        List<Estacion> estaciones = generateEstacionInfoJason();
+        List<Estacion> estaciones = generateEstacionesInfoCSV();
 
 
 
@@ -164,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 7000, 0, locListener);
     }
 
-/*    public List<Estacion> generateEstacionesInfoCSV() {
+    public List<Estacion> generateEstacionesInfoCSV() {
         List<Estacion> res = new ArrayList<Estacion>();
 
         InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
@@ -180,10 +180,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         return res;
 
-    }*/
+    }
 
 
-    public List<Estacion> generateEstacionInfoJason() {
+   /* public List<Estacion> generateEstacionInfoJason() {
 
         List<Estacion> estaciones = new ArrayList<Estacion>();
 
@@ -210,7 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 e1.printStackTrace();
             }
         return estaciones;
-    }
+    }*/
 
     public static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
