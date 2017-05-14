@@ -4,31 +4,12 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Document;
-
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.location.LocationListener;
-import android.util.Log;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -42,12 +23,20 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -86,7 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         miUbicacion();
 
-        List<Estacion> estaciones = generateEstacionInfoJason();
+        List<Estacion> estaciones = loadJSONFromAsset();
 
 
 
@@ -191,7 +180,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 JSONArray json = readJsonFromUrl("https://api.jcdecaux.com/vls/v1/stations?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b");
 
-                for(int i=0;i<259;i++){
+                for(int i=0;i<json.length();i++){
                     JSONObject obj = (JSONObject)json.get(i);
                     Estacion estacion = new Estacion();
                     estacion.setName(obj.getString("name"));
@@ -236,6 +225,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             is.close();
         }
         return json;
+    }
+
+    public ArrayList<Estacion> loadJSONFromAsset() {
+        ArrayList<Estacion> locList = new ArrayList<>();
+        String json = null;
+        try {
+            InputStream is = getAssets().open("Seville.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        try {
+            JSONObject obj = new JSONObject(json);
+            JSONArray m_jArry = obj.getJSONArray("locations");
+
+            for (int i = 0; i < m_jArry.length(); i++) {
+                JSONObject jo_inside = m_jArry.getJSONObject(i);
+                Estacion estacion = new Estacion();
+                estacion.setName(obj.getString("name"));
+                estacion.setNumero(obj.getInt("number"));
+                estacion.setAvailable(obj.getInt("available_bikes"));
+                estacion.setFree(obj.getInt("available_bike_stands"));
+                JSONObject pos = (JSONObject) obj.getJSONObject("position");
+                estacion.setLat(pos.getDouble("lat"));
+                estacion.setLen(pos.getDouble("lng"));
+
+
+
+                //Add your values in your `ArrayList` as below:
+                locList.add(estacion);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return locList;
     }
 
 }
