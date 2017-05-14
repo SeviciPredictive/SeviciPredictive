@@ -187,7 +187,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         List<Estacion> estaciones = new ArrayList<Estacion>();
 
-        for (Estacion e : estaciones) {
             try {
 
                 JSONArray json = readJsonFromUrl("https://api.jcdecaux.com/vls/v1/stations?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b");
@@ -208,8 +207,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (IOException e1) {
                 e1.printStackTrace();
             }  catch (JSONException e1) {
-            e1.printStackTrace();
-        }
+                e1.printStackTrace();
             }
         return estaciones;
     }
