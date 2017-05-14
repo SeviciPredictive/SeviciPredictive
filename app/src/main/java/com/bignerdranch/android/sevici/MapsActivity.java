@@ -231,7 +231,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ArrayList<Estacion> locList = new ArrayList<>();
         String json = null;
         try {
-            InputStream is = getAssets().open("Seville.json");
+            InputStream is = getAssets().open("sevilla.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
