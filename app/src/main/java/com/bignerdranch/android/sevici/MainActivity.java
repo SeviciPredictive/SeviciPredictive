@@ -9,8 +9,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -18,6 +24,7 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,31 +77,48 @@ public class MainActivity extends AppCompatActivity {
 
         //Insertamos los datos en la bbdd
 
-       // insertarDatosBD();
+        insertarDatosBD();
 
 
 
     }
 
-  /*  private void insertarDatosBD() {
+    public List<Estacion> generateEstacionesInfoCSV()  {
+        List<Estacion> res = new ArrayList<Estacion>();
+
+        InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
+        CSVFile csvFile = new CSVFile(inputStream);
+        List<String[]> stations = csvFile.read();
+        for (String[] e : stations) {
+            Estacion estacion = new Estacion();
+            estacion.setName(e[4]);
+            estacion.setNumero(Integer.parseInt(e[3]));
+            estacion.setLat(Double.parseDouble(e[6]));
+            estacion.setLen(Double.parseDouble(e[7]));
+            res.add(estacion);
+        }
+        return res;
+
+    }
+
+    private void insertarDatosBD() {
 
         BDSevici estaciones = new BDSevici(this,"BDEstaciones",null,1);
         SQLiteDatabase db =  estaciones.getWritableDatabase();
 
 
-
         //Insertamos primero los datos de las estaciones:
 
-        List<Estacion> estacionesCSV = generateEstacionInfoXML();
+       List<Estacion> estacionesCSV = generateEstacionesInfoCSV();
 
-        for(Estacion e: estacionesCSV){
-            db.execSQL("INSERT INTO Estaciones (nombre, numero, borlib, bicidis, lat, lon)"+ "VALUES ('"+ e.getName() + "', '"+ e.getNumero() + "', '" +e.getFree()+"','" +e.getAvailable()+ "'," +
-                    " "+e.getLat()+","+e.getLen()+")");
+        if(db!=null){
+            db.execSQL("DELETE FROM Estaciones");
+            for(Estacion e:estacionesCSV){
+                db.execSQL("INSERT INTO Estaciones (nombre, numero) VALUES ('"+ e.getName() + "', '" +e.getNumero()+"')");
+            }
+            db.close();
         }
-
-        db.close();
-    }*/
-
+    }
 
 
 

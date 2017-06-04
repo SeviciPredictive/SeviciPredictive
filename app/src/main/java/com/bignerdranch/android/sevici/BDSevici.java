@@ -8,10 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by CHUL on 13/05/2017.
  */
 
-/*private String available;
-private String free;
+/*private int available;
+private int free;
 private String name;
-private String numero;
+private int numero;
 private Double lat;
 private Double len;*/
 
@@ -22,7 +22,7 @@ public class BDSevici extends SQLiteOpenHelper{
     //no se usa
     // Version
 
-    String sqlCreate = "CREATE TABLE Estaciones (nombre TEXT, numero TEXT, borlib TEXT, bicidis TEXT, lat REAL, lon REAL)";
+    String sqlCreate = "CREATE TABLE Estaciones (nombre TEXT, numero INTEGER. bicis INTEGER)";
     public BDSevici(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
