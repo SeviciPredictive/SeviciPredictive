@@ -1,10 +1,13 @@
 package com.bignerdranch.android.sevici;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,12 +22,15 @@ import java.util.List;
 public class FavoriteActivity extends AppCompatActivity{
     private Spinner spinner1;
     private Button btnSubmit;
+    private EditText et1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-
+//        et1 = (EditText) findViewById(R.id.text);
+//        SharedPreferences prefe = getSharedPreferences("datos", Context.MODE_PRIVATE);
+//        et1.setText(prefe.getString("estaciones", ""));
         addItemsOnSpinner1();
         addListenerOnButton();
     }
@@ -50,6 +56,7 @@ public class FavoriteActivity extends AppCompatActivity{
         String itemText = (String) spinner1.getSelectedItem();
     }
 
+    String text="";
     public void addListenerOnButton() {
 
         spinner1 = (Spinner) findViewById(R.id.spinner1);
@@ -65,7 +72,7 @@ public class FavoriteActivity extends AppCompatActivity{
                                 "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()),
                         Toast.LENGTH_SHORT).show();
 
-                String seleccionada = (String) spinner1.getSelectedItem();
+                 text = (String) spinner1.getSelectedItem();
             }
 
         });

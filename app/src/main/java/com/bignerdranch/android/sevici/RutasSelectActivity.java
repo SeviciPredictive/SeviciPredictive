@@ -1,8 +1,10 @@
 package com.bignerdranch.android.sevici;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -95,18 +97,12 @@ public class RutasSelectActivity extends AppCompatActivity {
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
 
+
+
         btnSubmit.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(RutasSelectActivity.this,
-                        "Calcular rutas entre : " +
-                                "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()) +
-                                "\nSpinner 2 : "+ String.valueOf(spinner2.getSelectedItem()),
-                        Toast.LENGTH_SHORT).show();
-
-
 
                 String origenSeleccionado = (String) spinner1.getSelectedItem();
                 String destinoSeleccionado = (String) spinner2.getSelectedItem();
@@ -131,33 +127,21 @@ public class RutasSelectActivity extends AppCompatActivity {
                         lngDestino = Double.parseDouble(e[7]);
                         //LatLng latLng = new LatLng(latOrigen, lngOrigen);
                     }
-                    /*if(origenSeleccionado==destinoSeleccionado){
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
-                       alertDialogBuilder.setMessage("La parada de origen y destino no pueden ser iguales");
-                        alertDialogBuilder.setPositiveButton(
-                                "Aceptar",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        AlertDialog alert11 = alertDialogBuilder.create();
-                        alert11.show();
-
-                        Toast toast = Toast.makeText(getApplicationContext(), "Ejemplo de Mensaje Popup para Android OS desde Devtroce.com", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }*/
-
-
-
                 }
+
+
+
                 Uri uriUrl = Uri.parse("http://maps.google.es/maps?saddr=" + latOrigen.toString() + "," + lngDestino.toString()
                         + "&daddr=" + latDestino.toString() + "," + lngDestino.toString());
                 //Especificamos la accion a realizar con el ACTION_VIEW
                 //para que elija lo mas razonable
-                Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                startActivity(intent);
+                if((latOrigen.toString().equals(latDestino.toString())) && (lngOrigen.toString().equals(lngDestino.toString()))){
+                    Toast toast = Toast.makeText(getApplicationContext(), "La estación origen y destino \n      deben ser distintas", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else{
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(intent);
+                }
 
 
             }
@@ -165,5 +149,34 @@ public class RutasSelectActivity extends AppCompatActivity {
         });
     }
 
+
+/*
+    public void PopUp(View v){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Mensaje de prueba")
+                .setTitle("TITULO DE PRUEBA")
+                .setCancelable(false)
+                .setNeutralButton("Aceptar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+*/
+    public void metodo() {
+
+        new AlertDialog.Builder(RutasSelectActivity.this)
+                .setTitle("Dialog Simple")
+                .setMessage("Gracias por visitar javaheros.blogspot.com")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dialog.cancel();
+                    }
+                 }).show();
+    }
 
 }
