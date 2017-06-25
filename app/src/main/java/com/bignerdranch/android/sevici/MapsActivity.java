@@ -75,12 +75,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         LatLng sevilla = new LatLng(37.3754865, -6.025099);
 
-        List <Estacion> estaciones = JSONParser.generateEstacionInfoJason();
+        List<Estacion> estaciones = generateEstacionesInfoCSV();
 
         for (Estacion e : estaciones) {
             LatLng latLng = new LatLng(e.getLat(), e.getLen());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero()+"-"+e.getName()).snippet(
-                    "Bicis disponibles:" + e.getAvailable() +" - Bornetas libres: "+e.getFree())
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero() + "-" + e.getName()).snippet(
+                    "Bicis disponibles:" + e.getAvailable() + " - Bornetas libres: " + e.getFree())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
         }
 
@@ -153,7 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 7000, 0, locListener);
     }
 
-  /*  public List<Estacion> generateEstacionesInfoCSV() {
+    public List<Estacion> generateEstacionesInfoCSV() {
         List<Estacion> res = new ArrayList<Estacion>();
 
         InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
@@ -169,10 +169,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         return res;
 
-    }*/
-
-
-
-
-
+    }
 }
