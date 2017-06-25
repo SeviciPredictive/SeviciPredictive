@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Insertamos los datos en la bbdd
 
-        insertarDatosBD();
+        //insertarDatosBD();
 
 
 
@@ -103,23 +103,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void insertarDatosBD() {
 
-        BDSevici estaciones = new BDSevici(this,"BDEstaciones",null,1);
+       BDSevici estaciones = new BDSevici(this,"BDEstaciones",null,1);
         SQLiteDatabase db =  estaciones.getWritableDatabase();
-
-
-        //Insertamos primero los datos de las estaciones:
-
-       List<Estacion> estacionesCSV = generateEstacionesInfoCSV();
 
         if(db!=null){
             db.execSQL("DELETE FROM Estaciones");
-            for(Estacion e:estacionesCSV){
-                db.execSQL("INSERT INTO Estaciones (nombre, numero) VALUES ('"+ e.getName() + "', '" +e.getNumero()+"')");
-            }
-            db.close();
         }
     }
-
-
 
 }

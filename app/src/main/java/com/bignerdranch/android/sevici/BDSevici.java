@@ -18,9 +18,9 @@ private Double len;*/
 public class BDSevici extends SQLiteOpenHelper{
 
     //Context referencia a la activity
-    // Nombre base de datos
+    //Nombre base de datos
     //no se usa
-    // Version
+    //Version
 
     String sqlCreate = "CREATE TABLE Estaciones (nombre TEXT, numero INTEGER. bicis INTEGER)";
     public BDSevici(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

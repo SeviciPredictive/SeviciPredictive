@@ -2,15 +2,18 @@ package com.bignerdranch.android.sevici;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.location.LocationListener;
+import android.util.Log;
 
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -31,12 +34,14 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -49,6 +54,14 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    HttpURLConnection urlConnection;
+
+    public void setEstaciones(List<Estacion> estaciones) {
+        this.estaciones = estaciones;
+    }
+
+    List<Estacion> estaciones = new ArrayList<Estacion>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +88,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         LatLng sevilla = new LatLng(37.3754865, -6.025099);
 
-        List<Estacion> estaciones = generateEstacionesInfoCSV();
+        new MyAsyncTask(this).execute();
 
-        for (Estacion e : estaciones) {
+      //List <Estacion> estaciones = generateEstacionesInfoCSV();
+
+        for (Estacion e : this.estaciones) {
+            String nombre = e.getName();
             LatLng latLng = new LatLng(e.getLat(), e.getLen());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero() + "-" + e.getName()).snippet(
-                    "Bicis disponibles:" + e.getAvailable() + " - Bornetas libres: " + e.getFree())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero()+"-"+e.getName()).snippet(
+                    "Bicis disponibles:" + e.getAvailable() +" - Bornetas libres: "+e.getFree())
+                   .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
         }
 
         miUbicacion();
@@ -170,4 +186,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return res;
 
     }
+
+
+
+
+
+
+
+
+
 }

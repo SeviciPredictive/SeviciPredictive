@@ -40,7 +40,7 @@ public class RutasSelectActivity extends AppCompatActivity {
         addItemsOnSpinner1();
         addItemsOnSpinner2();
         addListenerOnButton();
-       // addListenerOnSpinnerItemSelection();
+        // addListenerOnSpinnerItemSelection();
     }
 
     public void addItemsOnSpinner1() {
@@ -75,8 +75,8 @@ public class RutasSelectActivity extends AppCompatActivity {
         for(String[] e: stations){
             list.add(e[4]);
         }
-     //   list.add("list 1");
-     //   list.add("list 2");//  list.add("list 3");
+        //   list.add("list 1");
+        //   list.add("list 2");//  list.add("list 3");
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
@@ -84,9 +84,9 @@ public class RutasSelectActivity extends AppCompatActivity {
         spinner2.setAdapter(dataAdapter);
     }
 
-   // public void addListenerOnSpinnerItemSelection() {
-  //      spinner1 = (Spinner) findViewById(R.id.spinner1);
- //       spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+    // public void addListenerOnSpinnerItemSelection() {
+    //      spinner1 = (Spinner) findViewById(R.id.spinner1);
+    //       spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 //   }
 
     // get the selected dropdown list value
@@ -136,7 +136,7 @@ public class RutasSelectActivity extends AppCompatActivity {
                 //Especificamos la accion a realizar con el ACTION_VIEW
                 //para que elija lo mas razonable
                 if((latOrigen.toString().equals(latDestino.toString())) && (lngOrigen.toString().equals(lngDestino.toString()))){
-                    Toast toast = Toast.makeText(getApplicationContext(), "La estación origen y destino \n      deben ser distintas", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "La estaciÃ³n origen y destino \n      deben ser distintas", Toast.LENGTH_SHORT);
                     toast.show();
                 }else{
                     Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -150,22 +150,22 @@ public class RutasSelectActivity extends AppCompatActivity {
     }
 
 
-/*
-    public void PopUp(View v){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Mensaje de prueba")
-                .setTitle("TITULO DE PRUEBA")
-                .setCancelable(false)
-                .setNeutralButton("Aceptar",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-*/
+    /*
+        public void PopUp(View v){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Mensaje de prueba")
+                    .setTitle("TITULO DE PRUEBA")
+                    .setCancelable(false)
+                    .setNeutralButton("Aceptar",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    */
     public void metodo() {
 
         new AlertDialog.Builder(RutasSelectActivity.this)
@@ -176,7 +176,7 @@ public class RutasSelectActivity extends AppCompatActivity {
 
                         dialog.cancel();
                     }
-                 }).show();
+                }).show();
     }
 
 }
