@@ -17,6 +17,14 @@ repositories {
 
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'SeviciPredictiveKey'
+            keyPassword 'SeviciPredictiveKey'
+            storeFile file('C:/Users/RAFA/Desktop/SeviciPredictive/sevicipredictiveapk.jks')
+            storePassword 'sevicipredictive'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {

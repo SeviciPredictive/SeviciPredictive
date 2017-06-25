@@ -53,11 +53,18 @@
             meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
+            <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC5DeRy65G5byz57URweIJRuRbs-iV1uNQ" />
+
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBqRhLNVLASQGlXbliB7gD0Yz72dM3T9KQ" />
         -->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC5DeRy65G5byz57URweIJRuRbs-iV1uNQ" />
+            android:value="AIzaSyAPkoxEI1gPAok9ow5_0n1YhZMytly_vKY" />
 
         <meta-data	android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
