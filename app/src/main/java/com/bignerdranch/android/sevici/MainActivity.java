@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -109,6 +112,26 @@ public class MainActivity extends AppCompatActivity {
         if(db!=null){
             db.execSQL("DELETE FROM Estaciones");
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.acercade, menu);
+        return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_acercade) {
+            Intent about = new Intent(this, AcercaDe.class);
+            startActivity(about);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
