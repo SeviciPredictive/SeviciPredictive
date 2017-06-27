@@ -1,5 +1,6 @@
 package com.bignerdranch.android.sevici;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,12 +20,12 @@ import java.util.List;
 public class FavoriteActivity extends AppCompatActivity{
     private Spinner spinner1;
     private Button btnSubmit;
+    public  static final String PREFS_FAVORITOS = "EstacionesFavoritas";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-
         addItemsOnSpinner1();
         addListenerOnButton();
     }
@@ -40,8 +41,6 @@ public class FavoriteActivity extends AppCompatActivity{
         for(String[] e: stations){
             list.add(e[3]+" - "+e[4]);
         }
-        //   list.add("list 1");
-        //   list.add("list 2");//  list.add("list 3");
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
@@ -60,17 +59,30 @@ public class FavoriteActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(FavoriteActivity.this,
-                        "OnClickListener : " +
-                                "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()),
-                        Toast.LENGTH_SHORT).show();
+                //String seleccionada = (String) spinner1.getSelectedItem();
+                //metodoFavorito();
+                createSharedPreferences();
+                //readSharedPreferences();
 
-                String seleccionada = (String) spinner1.getSelectedItem();
             }
 
         });
 
-
-
     }
+
+
+    private void createSharedPreferences(){
+        SharedPreferences settings = getSharedPreferences(PREFS_FAVORITOS, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(spinner1.getSelectedItem().toString(), "estacion");
+        editor.commit();
+        Toast.makeText(FavoriteActivity.this,"Estacion añadida a favoritos" + spinner1.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+    }
+
+
+    private void readSharedPreferences(){
+        SharedPreferences settings = getSharedPreferences(PREFS_FAVORITOS, 0);
+        String valores = settings.getString("1 - Glorieta Olimpica", "No encontrado");
+    }
+
 }

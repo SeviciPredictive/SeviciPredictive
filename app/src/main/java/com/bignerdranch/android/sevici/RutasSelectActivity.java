@@ -136,7 +136,7 @@ public class RutasSelectActivity extends AppCompatActivity {
                 //Especificamos la accion a realizar con el ACTION_VIEW
                 //para que elija lo mas razonable
                 if((latOrigen.toString().equals(latDestino.toString())) && (lngOrigen.toString().equals(lngDestino.toString()))){
-                    Toast toast = Toast.makeText(getApplicationContext(), "La estaciÃ³n origen y destino \n      deben ser distintas", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "La estacion origen y destino \n      deben ser distintas", Toast.LENGTH_SHORT);
                     toast.show();
                 }else{
                     Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -147,36 +147,6 @@ public class RutasSelectActivity extends AppCompatActivity {
             }
 
         });
-    }
-
-
-    /*
-        public void PopUp(View v){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Mensaje de prueba")
-                    .setTitle("TITULO DE PRUEBA")
-                    .setCancelable(false)
-                    .setNeutralButton("Aceptar",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
-    */
-    public void metodo() {
-
-        new AlertDialog.Builder(RutasSelectActivity.this)
-                .setTitle("Dialog Simple")
-                .setMessage("Gracias por visitar javaheros.blogspot.com")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        dialog.cancel();
-                    }
-                }).show();
     }
 
 }
