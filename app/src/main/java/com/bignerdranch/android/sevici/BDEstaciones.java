@@ -15,15 +15,16 @@ private int numero;
 private Double lat;
 private Double len;*/
 
-public class BDSevici extends SQLiteOpenHelper{
+public class BDEstaciones extends SQLiteOpenHelper{
 
     //Context referencia a la activity
     //Nombre base de datos
     //no se usa
     //Version
 
-    String sqlCreate = "CREATE TABLE Estaciones (nombre TEXT, numero INTEGER. bicis INTEGER)";
-    public BDSevici(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    String sqlCreate = "CREATE TABLE Estaciones (numero INTEGER, nombre TEXT, disponibles INTEGER, libres INTEGER,coordLat DOUBLE, coordLng DOUBLE)";
+
+    public BDEstaciones(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 

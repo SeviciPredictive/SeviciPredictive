@@ -30,37 +30,42 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import java.io.InputStreamReader;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import okhttp3.OkHttpClient;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    HttpURLConnection urlConnection;
-
-    public void setEstaciones(List<Estacion> estaciones) {
-        this.estaciones = estaciones;
-    }
-
-    List<Estacion> estaciones = new ArrayList<Estacion>();
 
 
     @Override
@@ -86,18 +91,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+
+        List<Estacion> estaciones = parserJsonToEstacion();
+        estaciones.size();
         LatLng sevilla = new LatLng(37.3754865, -6.025099);
 
-        new MyAsyncTask(this).execute();
-
-      //List <Estacion> estaciones = generateEstacionesInfoCSV();
-
-        for (Estacion e : this.estaciones) {
-            String nombre = e.getName();
-            LatLng latLng = new LatLng(e.getLat(), e.getLen());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero()+"-"+e.getName()).snippet(
-                    "Bicis disponibles:" + e.getAvailable() +" - Bornetas libres: "+e.getFree())
-                   .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
+       for (Estacion e : estaciones) {
+            LatLng latLng = new LatLng(e.getLatitud(), e.getLongitud());
+            mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero() + "-" + e.getNombre()).snippet(
+                    "Bicicletas disponibles:" + e.getDisponibles() + " - Bornetas libres: " + e.getLibres())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.images)));
         }
 
         miUbicacion();
@@ -177,22 +181,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         List<String[]> stations = csvFile.read();
         for (String[] e : stations) {
             Estacion estacion = new Estacion();
-            estacion.setName(e[4]);
+            estacion.setNombre(e[4]);
             estacion.setNumero(Integer.parseInt(e[3]));
-            estacion.setLat(Double.parseDouble(e[6]));
-            estacion.setLen(Double.parseDouble(e[7]));
+            estacion.setLatitud(Double.parseDouble(e[6]));
+            estacion.setLongitud(Double.parseDouble(e[7]));
             res.add(estacion);
         }
         return res;
-
     }
 
 
+    public List<Estacion> parserJsonToEstacion(){
+        List<Estacion> estaciones = new ArrayList<>();
+        JSONParser jp = new JSONParser();
+        JSONArray jArray = jp.makeHttpRequest("https://api.jcdecaux.com/vls/v1/stations?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b", "GET", new HashMap<String, String>());
 
+        try {
+            for (int i = 0; i < jArray.length(); i++) {
 
+                JSONObject jObj = jArray.getJSONObject(i);
+                Estacion estacion = new Estacion();
 
+                String name = jObj.getString("name");
+                int numero = jObj.getInt("number");
+                int available = jObj.getInt("available_bikes");
+                int free = jObj.getInt("available_bike_stands");
+                double lat = jObj.getJSONObject("position").getDouble("lat");
+                double len = jObj.getJSONObject("position").getDouble("lng");
 
+                estacion.setNombre(name.substring(4));
+                estacion.setNumero(numero);
+                estacion.setDisponibles(available);
+                estacion.setLibres(free);
+                estacion.setLatitud(lat);
+                estacion.setLongitud(len);
 
+                estaciones.add(estacion);
+            }
 
+            } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return estaciones;
+    }
 
 }
+
+
+
+
+
+
+
+

@@ -7,12 +7,12 @@ import java.util.List;
 
 public class Estacion {
 
-        private int available;
-        private int free;
-        private String name;
+        private int disponibles;
+        private int libres;
+        private String nombre;
         private int numero;
-        private Double lat;
-        private Double len;
+        private Double latitud;
+        private Double longitud;
 
         // Proveedor estático de datos para el adaptador
 
@@ -23,64 +23,51 @@ public class Estacion {
             super();
         }
 
-        public int getAvailable() {
-            return available;
-        }
+    public int getDisponibles() {
+        return disponibles;
+    }
 
-        public void setAvailable(int available) {
-            this.available = available;
-        }
+    public void setDisponibles(int disponibles) {
+        this.disponibles = disponibles;
+    }
 
-        public void setFree(int free) {
-            this.free = free;
-        }
+    public int getLibres() {
+        return libres;
+    }
 
-        public int getFree() {
-            return free;
-        }
+    public void setLibres(int libres) {
+        this.libres = libres;
+    }
 
-        public String getName(){
-            return name;
-        }
+    public String getNombre() {
+        return nombre;
+    }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-        public void setNumero(int numero) {
-            this.numero = numero;
-        }
+    public int getNumero() {
+        return numero;
+    }
 
-        public void setLat(Double lat) {
-            this.lat = lat;
-        }
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
 
-        public void setLen(Double len) {
-            this.len = len;
-        }
+    public Double getLatitud() {
+        return latitud;
+    }
 
-        public int getNumero(){
-            return numero;
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
 
-        }
+    public Double getLongitud() {
+        return longitud;
+    }
 
-        public Double getLat(){
-            return lat;
-        }
-
-        public Double getLen(){
-            return len;
-        }
-
-    @Override
-    public String toString() {
-        return "Estacion{" +
-                "available=" + available +
-                ", free=" + free +
-                ", name='" + name + '\'' +
-                ", numero='" + numero + '\'' +
-                ", lat=" + lat +
-                ", len=" + len +
-                '}';
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
 }

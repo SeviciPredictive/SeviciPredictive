@@ -5,29 +5,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,37 +69,30 @@ public class MainActivity extends AppCompatActivity {
 
         //Insertamos los datos en la bbdd
 
-        //insertarDatosBD();
+        insertarDatosBD();
 
 
-
-    }
-
-    public List<Estacion> generateEstacionesInfoCSV()  {
-        List<Estacion> res = new ArrayList<Estacion>();
-
-        InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
-        CSVFile csvFile = new CSVFile(inputStream);
-        List<String[]> stations = csvFile.read();
-        for (String[] e : stations) {
-            Estacion estacion = new Estacion();
-            estacion.setName(e[4]);
-            estacion.setNumero(Integer.parseInt(e[3]));
-            estacion.setLat(Double.parseDouble(e[6]));
-            estacion.setLen(Double.parseDouble(e[7]));
-            res.add(estacion);
-        }
-        return res;
 
     }
 
     private void insertarDatosBD() {
-
-       BDSevici estaciones = new BDSevici(this,"BDEstaciones",null,1);
+        BDEstaciones estaciones = new BDEstaciones(this,"BDEstaciones",null,1);
         SQLiteDatabase db =  estaciones.getWritableDatabase();
 
+        List<Estacion> lestaciones = parserJsonToEstacion();
         if(db!=null){
+
             db.execSQL("DELETE FROM Estaciones");
+
+            for(Estacion e: lestaciones){
+
+                db.execSQL("INSERT INTO Estaciones (numero, nombre, disponibles, libres, coordLat, coordLng)"+
+                        "VALUES ("+e.getNumero()+",'"+e.getNombre()+"',"+e.getDisponibles()+","+e.getLibres()+","+e.getLatitud()+","+e.getLongitud()+")");
+
+                /* "," +e.getAvailable()+ "," +e.getFree()+ "," +e.getLat()+","+e.getLen()+*/
+
+            }
+            db.close();
         }
     }
 
@@ -132,6 +114,40 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public List<Estacion> parserJsonToEstacion(){
+        List<Estacion> estaciones = new ArrayList<>();
+        JSONParser jp = new JSONParser();
+        JSONArray jArray = jp.makeHttpRequest("https://api.jcdecaux.com/vls/v1/stations?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b", "GET", new HashMap<String, String>());
+
+        try {
+            for (int i = 0; i < jArray.length(); i++) {
+
+                JSONObject jObj = jArray.getJSONObject(i);
+                Estacion estacion = new Estacion();
+
+                String name = jObj.getString("name");
+                int numero = jObj.getInt("number");
+                int available = jObj.getInt("available_bikes");
+                int free = jObj.getInt("available_bike_stands");
+                double lat = jObj.getJSONObject("position").getDouble("lat");
+                double len = jObj.getJSONObject("position").getDouble("lng");
+
+                estacion.setNombre(name.substring(4));
+                estacion.setNumero(numero);
+                estacion.setDisponibles(available);
+                estacion.setLibres(free);
+                estacion.setLatitud(lat);
+                estacion.setLongitud(len);
+
+                estaciones.add(estacion);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return estaciones;
     }
 
 }
