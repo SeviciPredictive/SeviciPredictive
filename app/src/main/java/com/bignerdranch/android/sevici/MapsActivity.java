@@ -157,13 +157,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void miUbicacion() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
 
@@ -173,28 +166,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 7000, 0, locListener);
     }
 
-    public List<Estacion> generateEstacionesInfoCSV() {
-        List<Estacion> res = new ArrayList<Estacion>();
-
-        InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
-        CSVFile csvFile = new CSVFile(inputStream);
-        List<String[]> stations = csvFile.read();
-        for (String[] e : stations) {
-            Estacion estacion = new Estacion();
-            estacion.setNombre(e[4]);
-            estacion.setNumero(Integer.parseInt(e[3]));
-            estacion.setLatitud(Double.parseDouble(e[6]));
-            estacion.setLongitud(Double.parseDouble(e[7]));
-            res.add(estacion);
-        }
-        return res;
-    }
-
-
     public List<Estacion> parserJsonToEstacion(){
         List<Estacion> estaciones = new ArrayList<>();
         JSONParser jp = new JSONParser();
-        JSONArray jArray = jp.makeHttpRequest("https://api.jcdecaux.com/vls/v1/stations?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b", "GET", new HashMap<String, String>());
+        JSONArray jArray = jp.makeHttpRequest("https://api.jcdecaux.com/vls/v1/stations" +
+                "?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b", "GET", new HashMap<String, String>());
 
         try {
             for (int i = 0; i < jArray.length(); i++) {

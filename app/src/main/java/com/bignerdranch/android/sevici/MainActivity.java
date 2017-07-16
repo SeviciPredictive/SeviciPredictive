@@ -89,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 db.execSQL("INSERT INTO Estaciones (numero, nombre, disponibles, libres, coordLat, coordLng)"+
                         "VALUES ("+e.getNumero()+",'"+e.getNombre()+"',"+e.getDisponibles()+","+e.getLibres()+","+e.getLatitud()+","+e.getLongitud()+")");
 
-                /* "," +e.getAvailable()+ "," +e.getFree()+ "," +e.getLat()+","+e.getLen()+*/
-
             }
             db.close();
         }
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public List<Estacion> parserJsonToEstacion(){
+    public static List<Estacion> parserJsonToEstacion(){
         List<Estacion> estaciones = new ArrayList<>();
         JSONParser jp = new JSONParser();
         JSONArray jArray = jp.makeHttpRequest("https://api.jcdecaux.com/vls/v1/stations?contract=Seville&apiKey=74b4b000eab8097de7f13de09a88e04706e2b99b", "GET", new HashMap<String, String>());

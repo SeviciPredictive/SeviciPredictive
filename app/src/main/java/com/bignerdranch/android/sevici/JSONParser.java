@@ -37,8 +37,7 @@ public class JSONParser {
     String paramsString;
 
 
-    public JSONArray makeHttpRequest(String url, String method,
-                                      HashMap<String, String> params) {
+    public JSONArray makeHttpRequest(String url, String method,HashMap<String, String> params) {
 
         sbParams = new StringBuilder();
         int i = 0;
