@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -33,14 +35,19 @@ public class FavoriteActivity extends AppCompatActivity{
     public void addItemsOnSpinner1() {
 
         spinner1 = (Spinner) findViewById(R.id.spinner1);
+        List<Estacion> estaciones = MainActivity.parserJsonToEstacion();
         List<String> list = new ArrayList<String>();
 
-        InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
+        for(Estacion e:estaciones){
+            list.add(e.getNumero()+"-"+e.getNombre());
+        }
+
+       /* InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
         CSVFile csvFile = new CSVFile(inputStream);
         List<String[]> stations = csvFile.read();
         for(String[] e: stations){
             list.add(e[3]+" - "+e[4]);
-        }
+        }*/
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);

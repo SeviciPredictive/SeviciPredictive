@@ -122,6 +122,9 @@ public class RutasSelectActivity extends AppCompatActivity {
                 Double latDestino = 0.0;
                 Double lngDestino = 0.0;
 
+                int bicilibOrigen = 0;
+                int bornlibDestino = 0;
+
           /*      InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
                 CSVFile csvFile = new CSVFile(inputStream);
                 List<String[]> stations = csvFile.read();
@@ -135,10 +138,12 @@ public class RutasSelectActivity extends AppCompatActivity {
                     if(e.getNombre().equals(origenSeleccionado)){
                         latOrigen = e.getLatitud();
                         lngOrigen = e.getLongitud();
+                        bicilibOrigen = e.getDisponibles();
                     }
                     if(e.getNombre().equals(destinoSeleccionado)){
                         latDestino = e.getLatitud();
                         lngDestino = e.getLongitud();
+                        bornlibDestino = e.getLibres();
                     }
                 }
 
@@ -161,8 +166,14 @@ public class RutasSelectActivity extends AppCompatActivity {
                         + "&daddr=" + latDestino.toString() + "," + lngDestino.toString()+"?mode=bicycling");
                 //Especificamos la accion a realizar con el ACTION_VIEW
                 //para que elija lo mas razonable
-                if((latOrigen.toString().equals(latDestino.toString())) && (lngOrigen.toString().equals(lngDestino.toString()))){
+                if((latOrigen.toString().equals(latDestino.toString())) && (lngOrigen.toString().equals(lngDestino.toString()))) {
                     Toast toast = Toast.makeText(getApplicationContext(), "La estacion origen y destino \n      deben ser distintas", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else if(bicilibOrigen <3) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Hay menos de 3 bicicletas \n     disponible en la estacion origen", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else if(bornlibDestino< 3){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Hay menos de 3 bornetas \n      libres en la estacion destino", Toast.LENGTH_SHORT);
                     toast.show();
                 }else{
                     Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
