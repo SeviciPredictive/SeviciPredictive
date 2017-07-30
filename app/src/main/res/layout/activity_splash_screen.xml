@@ -14,3 +14,8 @@
         android:src="@drawable/inicio"></ImageView>
 
 </RelativeLayout>
+
+<!--        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"  -->

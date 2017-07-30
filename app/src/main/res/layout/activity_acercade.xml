@@ -30,7 +30,7 @@
             android:id="@+id/textView8"
             android:textSize="20sp"
             android:fontFamily="sans-serif"
-            android:background="@drawable/acercade"
+            android:background="@drawable/acercade1"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
