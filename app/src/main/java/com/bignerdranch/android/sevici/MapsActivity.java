@@ -97,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         estaciones.size();
         LatLng sevilla = new LatLng(37.3754865, -6.025099);
 
-       for (Estacion e : estaciones) {
+        for (Estacion e : estaciones) {
             LatLng latLng = new LatLng(e.getLatitud(), e.getLongitud());
             mMap.addMarker(new MarkerOptions().position(latLng).title(e.getNumero() + "-" + e.getNombre()).snippet(
                     "Bicicletas disponibles:" + e.getDisponibles() + " - Bornetas libres: " + e.getLibres())
@@ -105,8 +105,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         miUbicacion();
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10.5f));
+     //   mMap.moveCamera(CameraUpdateFactory.newLatLng(sevilla));
+     //   mMap.animateCamera(CameraUpdateFactory.zoomTo(10.5f));
     }
 
 
@@ -114,6 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker marcador;
     double lat = 0.0;
     double lng = 0.0;
+    boolean isFirstTime=true;
 
     public void agregarMarcador(double lat, double lng) {
         LatLng coordenadas = new LatLng(lat, lng);
@@ -121,11 +122,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (marcador != null) {
             marcador.remove();
         }
-        marcador = mMap.addMarker(new MarkerOptions()
-                .position(coordenadas)
-                .title("Mi ubicación actual")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ubicacionactual)));
-        mMap.animateCamera(miUbicacion);
+        if(isFirstTime) {
+            mMap.animateCamera(miUbicacion);
+            mMap.moveCamera(miUbicacion);
+            isFirstTime = false;
+        }
+
     }
 
     private void actualizarUbicacion(Location location) {
@@ -156,10 +158,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     private void miUbicacion() {
+        mMap.setMyLocationEnabled(true);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         actualizarUbicacion(location);
@@ -195,18 +197,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 estaciones.add(estacion);
             }
 
-            } catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return estaciones;
     }
 
 }
-
-
-
-
-
-
-
-
