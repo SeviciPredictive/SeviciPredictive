@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     private void insertarDatosBD() {
         BDEstaciones estaciones = new BDEstaciones(this,"BDEstaciones",null,1);
         SQLiteDatabase db =  estaciones.getWritableDatabase();
-
+        int fav = 0;
         List<Estacion> lestaciones = parserJsonToEstacion();
         if(db!=null){
 
@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
             for(Estacion e: lestaciones){
 
-                db.execSQL("INSERT INTO Estaciones (numero, nombre, disponibles, libres, coordLat, coordLng)"+
-                        "VALUES ("+e.getNumero()+",'"+e.getNombre()+"',"+e.getDisponibles()+","+e.getLibres()+","+e.getLatitud()+","+e.getLongitud()+")");
+                db.execSQL("INSERT INTO Estaciones (numero, nombre, disponibles, libres, coordLat, coordLng, favest) "+
+                        "VALUES ("+e.getNumero()+",'"+e.getNombre()+"',"+e.getDisponibles()+","+e.getLibres()+","+e.getLatitud()+","+e.getLongitud()+","+fav+")");
 
             }
             db.close();

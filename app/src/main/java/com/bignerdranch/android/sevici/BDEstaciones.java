@@ -21,7 +21,8 @@ private Double len;*/
 
 public class BDEstaciones extends SQLiteOpenHelper{
 
-    String sqlCreate = "CREATE TABLE Estaciones (numero INTEGER, nombre TEXT, disponibles INTEGER, libres INTEGER,coordLat DOUBLE, coordLng DOUBLE)";
+    String sqlCreate = "CREATE TABLE Estaciones (numero INTEGER, nombre TEXT, disponibles INTEGER, libres INTEGER,coordLat DOUBLE, coordLng DOUBLE, favest INTEGER)";
+
 
     public BDEstaciones(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
