@@ -10,32 +10,39 @@
             android:id="@+id/spinner1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/spinner2"
+            android:layout_alignTop="@+id/textView4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="105dp" />
+            android:layout_marginTop="41dp" />
 
         <Spinner
             android:id="@+id/spinner2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/btnSubmit"
+            android:layout_alignTop="@+id/textView3"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="96dp" />
+            android:layout_marginTop="48dp" />
 
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="76dp"
-            android:layout_marginTop="43dp"
             android:onClick="CALCULAR RUTA"
-            android:text="CALCULAR RUTA" />
+            android:text="CALCULAR RUTA"
+            android:layout_below="@+id/spinner2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp" />
+
+            <Button
+                android:id="@+id/btnSubmit1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="AÑADIR A FAVORITOS"
+                android:text="AÑADIR A FAVORITOS"
+                android:layout_marginTop="36dp"
+                android:layout_below="@+id/btnSubmit"
+                android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/textView3"
@@ -45,21 +52,21 @@
             android:text="Seleccione estación de destino:"
             android:textSize="21dp"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:layout_above="@+id/spinner2"
+            android:layout_marginTop="57dp"
+            android:layout_below="@+id/textView4"
             android:layout_alignLeft="@+id/textView4"
-            android:layout_alignStart="@+id/textView4"
-            android:layout_marginBottom="34dp" />
+            android:layout_alignStart="@+id/textView4" />
 
         <TextView
             android:id="@+id/textView4"
             style="@android:style/Widget.DeviceDefault.Light.TextView.SpinnerItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/spinner1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="35dp"
             android:text="Seleccione estación de origen:"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="21dp" />
+            android:textSize="21dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp" />
 
     </RelativeLayout>
