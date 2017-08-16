@@ -13,6 +13,8 @@ public class Estacion {
         private int numero;
         private Double latitud;
         private Double longitud;
+        private Boolean favest;
+        private String direccion;
 
         // Proveedor estático de datos para el adaptador
 
@@ -71,5 +73,19 @@ public class Estacion {
         this.longitud = longitud;
     }
 
+    public Boolean getFavest() {
+        return favest;
+    }
 
+    public void setFavest(Boolean favest) {
+        this.favest = favest;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 }

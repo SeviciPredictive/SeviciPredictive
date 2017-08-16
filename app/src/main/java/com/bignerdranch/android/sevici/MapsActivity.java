@@ -2,6 +2,7 @@ package com.bignerdranch.android.sevici;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 
@@ -93,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
 
-        List<Estacion> estaciones = parserJsonToEstacion();
+        List<Estacion> estaciones =extraerDatosBDEstaciones();
         estaciones.size();
         LatLng sevilla = new LatLng(37.3754865, -6.025099);
 
@@ -202,5 +203,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         return estaciones;
     }
+
+
+    private List<Estacion> extraerDatosBDEstaciones() {
+        BDEstaciones estaciones = new BDEstaciones(this,"BDEstaciones",null,1);
+        SQLiteDatabase db =  estaciones.getWritableDatabase();
+        List<Estacion>estacionesdb = new ArrayList<>();
+
+        Cursor cursor=db.query("estaciones",new String[]{"numero","nombre","disponibles","libres","coordLat","coordLng","favest"},null,null,null,null,null);
+        //numero INTEGER, nombre TEXT, disponibles INTEGER, libres INTEGER,coordLat DOUBLE, coordLng DOUBLE, favest INTEGER)
+
+        while(cursor.moveToNext()){
+            Estacion estacion = new Estacion();
+            estacion.setNombre(cursor.getString(1));
+            estacion.setNumero(cursor.getInt(0));
+            estacion.setDisponibles(cursor.getInt(2));
+            estacion.setLibres(cursor.getInt(3));
+            estacion.setLatitud(cursor.getDouble(4));
+            estacion.setLongitud(cursor.getDouble(5));
+            int favest = cursor.getInt(6);
+            if(favest == 0){
+                estacion.setFavest(false);
+            }else{
+                estacion.setFavest(true);
+            }
+            estacionesdb.add(estacion);
+
+        }
+        db.close();
+
+        return estacionesdb;
+        }
 
 }

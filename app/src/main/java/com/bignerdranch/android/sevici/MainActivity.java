@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
             for(Estacion e: lestaciones){
 
-                db.execSQL("INSERT INTO Estaciones (numero, nombre, disponibles, libres, coordLat, coordLng, favest) "+
-                        "VALUES ("+e.getNumero()+",'"+e.getNombre()+"',"+e.getDisponibles()+","+e.getLibres()+","+e.getLatitud()+","+e.getLongitud()+","+fav+")");
+                db.execSQL("INSERT INTO Estaciones (numero, nombre, direccion, disponibles, libres, coordLat, coordLng, favest) "+
+                        "VALUES ("+e.getNumero()+",'"+e.getNombre()+"','"+e.getDireccion()+"',"+e.getDisponibles()+","+e.getLibres()+","+e.getLatitud()+","+e.getLongitud()+","+fav+")");
 
             }
             db.close();
@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 Estacion estacion = new Estacion();
 
                 String name = jObj.getString("name");
+                String address = jObj.getString("address");
                 int numero = jObj.getInt("number");
                 int available = jObj.getInt("available_bikes");
                 int free = jObj.getInt("available_bike_stands");
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 double len = jObj.getJSONObject("position").getDouble("lng");
 
                 estacion.setNombre(name.substring(4));
+                estacion.setDireccion(address.replace("'"," "));
                 estacion.setNumero(numero);
                 estacion.setDisponibles(available);
                 estacion.setLibres(free);
