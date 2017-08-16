@@ -28,6 +28,7 @@ public class RutasSelectActivity extends AppCompatActivity {
 
     private Spinner spinner1, spinner2;
     private Button btnSubmit;
+    private Button btnSubmit1;
     private GoogleMap map;
     private WebView webView;
 
@@ -105,6 +106,7 @@ public class RutasSelectActivity extends AppCompatActivity {
         spinner1 = (Spinner) findViewById(R.id.spinner1);
         spinner2 = (Spinner) findViewById(R.id.spinner2);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
+        btnSubmit1 = (Button) findViewById(R.id.btnSubmit1);
 
 
 
