@@ -88,7 +88,7 @@ public class EstacionesFragment extends Fragment {
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainIntent = new Intent().setClass(getActivity().getApplicationContext(), MapsActivity.class);
+                Intent mainIntent = new Intent().setClass(getActivity().getApplicationContext(), ListEstacionActivity.class);
                 startActivity(mainIntent);
             }
         });
