@@ -1,11 +1,16 @@
 package com.bignerdranch.android.sevici;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +24,7 @@ public class ItemArrayAdapter extends ArrayAdapter<Estacion> {
         TextView nombre;
         TextView disponible;
         TextView libres;
+
     }
 
     public ItemArrayAdapter(Context context, int textViewResourceId) {
@@ -55,12 +61,15 @@ public class ItemArrayAdapter extends ArrayAdapter<Estacion> {
             viewHolder.disponible = (TextView) row.findViewById(R.id.disponible);
            // viewHolder.libres = (TextView) row.findViewById(R.id.libres);
             row.setTag(viewHolder);
+
 		} else {
             viewHolder = (ItemViewHolder)row.getTag();
         }
 
+
         Estacion stat = getItem(position);
-        String numero = Integer.toString(stat.getNumero());
+        final int num = stat.getNumero();
+        final String numero = Integer.toString(stat.getNumero());
         String disponibles = Integer.toString(stat.getDisponibles());
         String libres = Integer.toString(stat.getLibres());
 
@@ -69,6 +78,33 @@ public class ItemArrayAdapter extends ArrayAdapter<Estacion> {
         viewHolder.disponible.setText("Disponibles: "+disponibles+ " Libres: "+libres);
         //viewHolder.libres.setText("Libres: "+libres);
 
-		return row;
+
+        row.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                /*View row = (View) v.getParent();
+                ViewGroup container = ((ViewGroup)row.getParent());
+                container.removeViewAt((int)v.getTag());*/
+
+
+                Toast toast = Toast.makeText(getContext().getApplicationContext(), "La estación ha sido borrada" , Toast.LENGTH_SHORT);
+                toast.show();
+
+                int i;
+                for(i=0;i<scoreList.size();i++) {
+                    if(num==scoreList.get(i).getNumero()){
+                        scoreList.remove(i);
+                    }
+                    notifyDataSetChanged();
+                }
+                BDEstaciones estaciones = new BDEstaciones(getContext().getApplicationContext(),"BDEstaciones",null,1);
+                SQLiteDatabase db =  estaciones.getWritableDatabase();
+                ContentValues cv =  new ContentValues();
+                cv.put("favest",0);
+                db.update("estaciones",cv,"numero="+num,null );
+                db.close();
+            }
+        });
+
+        return row;
 	}
 }
