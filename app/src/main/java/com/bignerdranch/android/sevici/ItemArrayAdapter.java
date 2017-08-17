@@ -15,8 +15,10 @@ public class ItemArrayAdapter extends ArrayAdapter<Estacion> {
 	private List<Estacion> scoreList = new ArrayList<Estacion>();
 
     static class ItemViewHolder {
-        TextView name;
-        TextView score;
+        TextView numero;
+        TextView nombre;
+        TextView disponible;
+        TextView libres;
     }
 
     public ItemArrayAdapter(Context context, int textViewResourceId) {
@@ -48,16 +50,25 @@ public class ItemArrayAdapter extends ArrayAdapter<Estacion> {
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(R.layout.item_layout, parent, false);
             viewHolder = new ItemViewHolder();
-            viewHolder.name = (TextView) row.findViewById(R.id.name);
-            viewHolder.score = (TextView) row.findViewById(R.id.score);
+            viewHolder.numero = (TextView) row.findViewById(R.id.numero);
+            //viewHolder.nombre = (TextView) row.findViewById(R.id.nombre);
+            viewHolder.disponible = (TextView) row.findViewById(R.id.disponible);
+           // viewHolder.libres = (TextView) row.findViewById(R.id.libres);
             row.setTag(viewHolder);
 		} else {
             viewHolder = (ItemViewHolder)row.getTag();
         }
+
         Estacion stat = getItem(position);
         String numero = Integer.toString(stat.getNumero());
-        viewHolder.name.setText(stat.getNombre());
-        viewHolder.score.setText(numero);
+        String disponibles = Integer.toString(stat.getDisponibles());
+        String libres = Integer.toString(stat.getLibres());
+
+        viewHolder.numero.setText("Numero: "+numero+ " Nombre: "+stat.getNombre());
+        //viewHolder.nombre.setText("Nombre: "+stat.getNombre());
+        viewHolder.disponible.setText("Disponibles: "+disponibles+ " Libres: "+libres);
+        //viewHolder.libres.setText("Libres: "+libres);
+
 		return row;
 	}
 }
