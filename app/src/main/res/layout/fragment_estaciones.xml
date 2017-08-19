@@ -25,9 +25,9 @@
         android:text="@string/seleccione_una_estaci_n"
         android:textColor="@color/NEGRO"
         android:textSize="25sp"
+        android:layout_marginTop="125dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="112dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/button2"
@@ -36,7 +36,8 @@
         android:text="@string/guardar"
         android:gravity="center"
         android:layout_above="@+id/button4"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp" />
 
     <Button
         android:id="@+id/button4"
@@ -44,7 +45,7 @@
         android:layout_height="wrap_content"
         android:text="@string/ver_favoritas"
         android:gravity="center"
+        android:layout_marginBottom="105dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="82dp" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
