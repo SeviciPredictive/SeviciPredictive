@@ -29,8 +29,6 @@ public class RutasSelectActivity extends AppCompatActivity {
     private Spinner spinner1, spinner2;
     private Button btnSubmit;
     private Button btnSubmit1;
-    private GoogleMap map;
-    private WebView webView;
 
 
 
@@ -42,7 +40,6 @@ public class RutasSelectActivity extends AppCompatActivity {
         addItemsOnSpinner1();
         addItemsOnSpinner2();
         addListenerOnButton();
-        // addListenerOnSpinnerItemSelection();
     }
 
     public void addItemsOnSpinner1() {
@@ -50,19 +47,10 @@ public class RutasSelectActivity extends AppCompatActivity {
         spinner1 = (Spinner) findViewById(R.id.spinner1);
         List<String> list = new ArrayList<String>();
 
-      /*  InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
-        CSVFile csvFile = new CSVFile(inputStream);
-        List<String[]> stations = csvFile.read();
-        for(String[] e: stations){
-            list.add(e[4]);
-        }*/
-
         List<Estacion> estaciones = MainActivity.parserJsonToEstacion();
         for(Estacion e:estaciones){
             list.add(e.getNombre());
         }
-        //   list.add("list 1");
-        //   list.add("list 2");//  list.add("list 3");
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
@@ -76,18 +64,10 @@ public class RutasSelectActivity extends AppCompatActivity {
         spinner2 = (Spinner) findViewById(R.id.spinner2);
         List<String> list = new ArrayList<String>();
 
-        /*InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
-        CSVFile csvFile = new CSVFile(inputStream);
-        List<String[]> stations = csvFile.read();
-        for(String[] e: stations){
-            list.add(e[4]);
-        }*/
         List<Estacion> estaciones = MainActivity.parserJsonToEstacion();
         for(Estacion e:estaciones){
             list.add(e.getNombre());
         }
-        //   list.add("list 1");
-        //   list.add("list 2");//  list.add("list 3");
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
@@ -95,10 +75,7 @@ public class RutasSelectActivity extends AppCompatActivity {
         spinner2.setAdapter(dataAdapter);
     }
 
-    // public void addListenerOnSpinnerItemSelection() {
-    //      spinner1 = (Spinner) findViewById(R.id.spinner1);
-    //       spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-//   }
+
 
     // get the selected dropdown list value
     public void addListenerOnButton() {
@@ -127,14 +104,6 @@ public class RutasSelectActivity extends AppCompatActivity {
                 int bicilibOrigen = 0;
                 int bornlibDestino = 0;
 
-          /*      InputStream inputStream = getResources().openRawResource(R.raw.estaciones_sevici);
-                CSVFile csvFile = new CSVFile(inputStream);
-                List<String[]> stations = csvFile.read();
-                Double latOrigen = 0.0;
-                Double lngOrigen = 0.0;
-                Double latDestino = 0.0;
-                Double lngDestino = 0.0;*/
-
                 List<Estacion> estaciones = MainActivity.parserJsonToEstacion();
                 for(Estacion e:estaciones){
                     if(e.getNombre().equals(origenSeleccionado)){
@@ -148,20 +117,6 @@ public class RutasSelectActivity extends AppCompatActivity {
                         bornlibDestino = e.getLibres();
                     }
                 }
-
-               /* for(String[] e: stations) {
-                    if (e[4].toString().contains(origenSeleccionado)) {
-                        latOrigen = Double.parseDouble(e[6]);
-                        lngOrigen = Double.parseDouble(e[7]);
-                        //LatLng latLng = new LatLng(latOrigen, lngOrigen);
-                    }
-
-                    if (e[4].toString().contains(destinoSeleccionado)) {
-                        latDestino = Double.parseDouble(e[6]);
-                        lngDestino = Double.parseDouble(e[7]);
-                        //LatLng latLng = new LatLng(latOrigen, lngOrigen);
-                    }*/
-
 
 
                 Uri uriUrl = Uri.parse("http://maps.google.es/maps?saddr=" + latOrigen.toString() + "," + lngDestino.toString()
