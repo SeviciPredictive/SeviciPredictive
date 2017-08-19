@@ -1,6 +1,8 @@
 package com.bignerdranch.android.sevici;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -80,18 +82,34 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db =  estaciones.getWritableDatabase();
         int fav = 0;
         List<Estacion> lestaciones = parserJsonToEstacion();
-        if(db!=null){
-
-            db.execSQL("DELETE FROM Estaciones");
-
-            for(Estacion e: lestaciones){
-
-                db.execSQL("INSERT INTO Estaciones (numero, nombre, direccion, disponibles, libres, coordLat, coordLng, favest) "+
-                        "VALUES ("+e.getNumero()+",'"+e.getNombre()+"','"+e.getDireccion()+"',"+e.getDisponibles()+","+e.getLibres()+","+e.getLatitud()+","+e.getLongitud()+","+fav+")");
+        if(db!=null) {
+            String count = "SELECT count(*) FROM estaciones";
+            Cursor mcursor = db.rawQuery(count, null);
+            mcursor.moveToFirst();
+            int icount = mcursor.getInt(0);
+            if (icount > 0) {
+                //Tiene ya elementos se actualizan
+                for (Estacion e : lestaciones) {
+                    ContentValues cv = new ContentValues();
+                    cv.put("nombre", e.getNombre());
+                    cv.put("direccion", e.getDireccion());
+                    cv.put("disponibles", e.getDisponibles());
+                    cv.put("libres", e.getLibres());
+                    cv.put("coordLat", e.getLatitud());
+                    cv.put("coordLng", e.getLongitud());
+                    db.update("estaciones", cv, "numero=" + e.getNumero(), null);
+                }
+            } else {
+                //Es la primera vez se popula la bd
+                db.execSQL("DELETE FROM Estaciones");
+                for (Estacion e : lestaciones) {
+                    db.execSQL("INSERT INTO Estaciones (numero, nombre, direccion, disponibles, libres, coordLat, coordLng, favest) " +
+                            "VALUES (" + e.getNumero() + ",'" + e.getNombre() + "','" + e.getDireccion() + "'," + e.getDisponibles() + "," + e.getLibres() + "," + e.getLatitud() + "," + e.getLongitud() + "," + fav + ")");
+                }
 
             }
-            db.close();
         }
+        db.close();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,9 +1,13 @@
 package com.bignerdranch.android.sevici;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Parcelable;
 import android.provider.Contacts;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +41,7 @@ public class ListEstacionActivity extends Activity {
         Parcelable state = listView.onSaveInstanceState();
         listView.setAdapter(itemArrayAdapter);
         listView.onRestoreInstanceState(state);
+
 
         //List<String> lista = new ArrayList<String>();
         //lista.add("Numero - Nombre - Disponible");
@@ -75,4 +80,5 @@ public class ListEstacionActivity extends Activity {
         };*/
        // getListView().setAdapter(arrayAdapter);
         }
+
     }

@@ -109,7 +109,7 @@ public class EstacionesFragment extends Fragment {
 
                 Estacion estacionSeleccionada = (Estacion) spinner1.getSelectedItem();
                 int numEsta = estacionSeleccionada.getNumero();
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Has seleccionado la estacion "+numEsta, Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "La estación ha sido añadida a favoritos", Toast.LENGTH_SHORT);
                 toast.show();
 
                 //Cambiamos el valor del atributo a true
