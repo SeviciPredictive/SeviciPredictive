@@ -22,6 +22,7 @@ private Double len;*/
 public class BDEstaciones extends SQLiteOpenHelper{
 
     String sqlCreate = "CREATE TABLE Estaciones (numero INTEGER, nombre TEXT, direccion TEXT, disponibles INTEGER, libres INTEGER,coordLat DOUBLE, coordLng DOUBLE, favest INTEGER)";
+    String sqlCreate1 = "CREATE TABLE Rutas (id INTEGER PRIMARY KEY AUTOINCREMENT,nombreOri TEXT, latOri DOUBLE, lonOri DOUBLE, nombreDes TEXT, latDes DOUBLE, lonDes DOUBLE)";
 
 
     public BDEstaciones(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -35,6 +36,7 @@ public class BDEstaciones extends SQLiteOpenHelper{
 
         //Crea si no existe la base de datos
         db.execSQL(sqlCreate);
+        db.execSQL(sqlCreate1);
 
 
 
@@ -46,9 +48,11 @@ public class BDEstaciones extends SQLiteOpenHelper{
 
         // Se ejecuta cuando tengo la version 1 y le pase la version 2. Ve una actualizacion
         db.execSQL("DROP TABLE IF EXISTS Estaciones");
+        db.execSQL("DROP TABLE IF EXISTS Rutas");
 
         //Se crea la version nueva de la tabla
         db.execSQL(sqlCreate);
+        db.execSQL(sqlCreate1);
 
         //Añade los datos de las estaciones
 

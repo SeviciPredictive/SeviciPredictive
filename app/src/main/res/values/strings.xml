@@ -9,6 +9,7 @@
     <string name="title_activity_rutas">RutasActivity</string>
     <string name="title_activity_favorite">RutasActivity</string>
     <string name="title_estacion_favorite">Lista estaciones favoritas</string>
+    <string name="title_rutas_favorite">Lista rutas favoritas</string>
 
     <string name="rutas_choose">Elige ruta</string>
     <string name="title_activity_maps_prueba">Map</string>
@@ -22,4 +23,6 @@
     <string name="guardar">Guardar</string>
     <string name="seleccione_una_estaci_n">Seleccione una estación:</string>
     <string name="ver_favoritas">Ver favoritas</string>
+    <string name="calcular">Calcular</string>
+    <string name="eliminar">Eliminar</string>
 </resources>

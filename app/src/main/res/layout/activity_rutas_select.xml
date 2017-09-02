@@ -69,4 +69,13 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="33dp" />
 
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnSubmit1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp"
+            android:text="@string/ver_favoritas" />
+
     </RelativeLayout>
