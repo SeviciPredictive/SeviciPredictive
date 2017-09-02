@@ -17,19 +17,11 @@ repositories {
 
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'SeviciPredictiveKey'
-            keyPassword 'SeviciPredictiveKey'
-            storeFile file('C:/Users/RAFA/Desktop/SeviciPredictive/sevicipredictiveapk.jks')
-            storePassword 'sevicipredictive'
-        }
-    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.bignerdranch.android.sevici"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
