@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainIntent = new Intent().setClass(MainActivity.this, RutasEstacionesFavoritasActivity.class);
+                Intent mainIntent = new Intent().setClass(MainActivity.this, EstacionesSelectActivity.class);
                 startActivity(mainIntent);
             }
         });
