@@ -91,17 +91,36 @@
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".FavoriteActivity"
-            android:label="@string/title_activity_favorite" />
-
-        <activity
-            android:screenOrientation="portrait"
             android:name=".AcercaDe"
             android:label="AcercaDe" />
 
         <activity
             android:name=".MapsActivity"
             android:label="MapsActivity" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ListRutasActivity"
+            android:label="@string/title_rutas_favorite"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".EstacionesSelectActivity">
+        </activity>
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".RutasEstacionesFavoritasActivity"
+            android:label="@string/title_activity_rutas_estaciones_favoritas"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ListEstacionActivity"
+            android:label="@string/title_estacion_favorite"
+            android:theme="@style/AppTheme.NoActionBar" />
+
 
     </application>
 

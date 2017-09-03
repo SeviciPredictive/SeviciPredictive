@@ -9,6 +9,6 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/favrutas" />
+        android:background="@drawable/favrutas2" />
 
 </RelativeLayout>
